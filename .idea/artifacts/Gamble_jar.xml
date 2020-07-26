@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Gamble:jar">
+    <output-path>$USER_HOME$/Desktop/기타파일/게임관련/스크2.4.1/plugins</output-path>
+    <root id="archive" name="Gamble.jar">
+      <element id="module-output" name="Gamble" />
+    </root>
+  </artifact>
+</component>

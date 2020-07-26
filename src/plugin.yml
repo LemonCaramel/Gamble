@@ -1,0 +1,7 @@
+name: Gambling
+version: 1.0
+author: DR_Division
+main: Division.Main
+commands:
+  도박:
+    description: 도박 관련 명령어를 표시합니다.

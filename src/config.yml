@@ -1,0 +1,23 @@
+#Don't Edit this config file with Editor!
+Slot:
+  Need: 100
+  Accumoney: 1.0
+Dice:
+  Minimum: 500
+  Maximum: 4000
+Blackjack:
+  Minimum: 500
+  Maximum: 4000
+Rollet:
+  Minimum: 500
+  Maximum: 2000
+Coin:
+  amount: 100
+Indian:
+  Minimum: 1000
+  Maximum: 4000
+Card:
+  Minimum: 1000
+  Maximum: 4000
+Blacklist:
+  - 'null'
