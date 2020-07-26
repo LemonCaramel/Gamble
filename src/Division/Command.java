@@ -1,7 +1,6 @@
 package Division;
 
 import moe.caramel.counterzombie.database.GameVars;
-import net.minecraft.server.v1_12_R1.Vec3D;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -55,14 +54,14 @@ public class Command implements CommandExecutor {
                 } else {
                     if (strings[0].equalsIgnoreCase("슬롯머신") || strings[0].equalsIgnoreCase("주사위") || strings[0].equalsIgnoreCase("블랙잭") || strings[0].equalsIgnoreCase("동전")|| strings[0].equalsIgnoreCase("룰렛") || strings[0].equalsIgnoreCase("블랙리스트") || strings[0].equalsIgnoreCase("금액") ||strings[0].equalsIgnoreCase("인디언포커") || strings[0].equalsIgnoreCase("카드")) {
                         if (strings[0].equalsIgnoreCase("슬롯머신")) {
-                            if (itemcheck(p) != true || sleepcheck(p) != true) {
+                            if (!itemcheck(p) || !sleepcheck(p)) {
                                 p.sendTitle(st, ChatColor.AQUA + "아이템을 들거나 자는 상태에서 해당 명령어를 치시면 안됩니다.", 5, 50, 5);
                             } else {
                                 Slot sl = new Slot();
                                 sl.createslot(p);
                             }
                         } else if (strings[0].equalsIgnoreCase("주사위")) {
-                            if (itemcheck(p) != true || sleepcheck(p) != true) {
+                            if (!itemcheck(p) || !sleepcheck(p)) {
                                 p.sendTitle(st, ChatColor.AQUA + "아이템을 들거나 자는 상태에서 해당 명령어를 치시면 안됩니다.", 5, 50, 5);
                             } else {
                                 if (strings.length == 1) {
@@ -117,7 +116,7 @@ public class Command implements CommandExecutor {
                                 }
                             }
                         } else if (strings[0].equalsIgnoreCase("블랙잭")) {
-                            if (itemcheck(p) != true || sleepcheck(p) != true) {
+                            if (!itemcheck(p) || !sleepcheck(p)) {
                                 p.sendTitle(st, ChatColor.AQUA + "아이템을 들거나 자는 상태에서 해당 명령어를 치시면 안됩니다.", 5, 50, 5);
                             } else {
                                 if (strings.length == 1) {
@@ -179,7 +178,7 @@ public class Command implements CommandExecutor {
                                 }
                             }
                         } else if (strings[0].equalsIgnoreCase("룰렛")) {
-                            if (itemcheck(p) != true || sleepcheck(p) != true) {
+                            if (!itemcheck(p) || !sleepcheck(p)) {
                                 p.sendTitle(st, ChatColor.AQUA + "아이템을 들거나 자는 상태에서 해당 명령어를 치시면 안됩니다.", 5, 50, 5);
                             } else {
                                 if (strings.length == 1) {
@@ -236,7 +235,7 @@ public class Command implements CommandExecutor {
                                 }
                             }
                         } else if (strings[0].equalsIgnoreCase("동전")) {
-                            if (itemcheck(p) != true || sleepcheck(p) != true) {
+                            if (!itemcheck(p) || !sleepcheck(p)) {
                                 p.sendTitle(st, ChatColor.AQUA + "아이템을 들거나 자는 상태에서 해당 명령어를 치시면 안됩니다.", 5, 50, 5);
                             } else {
                                 coingui coin = new coingui();
@@ -318,7 +317,7 @@ public class Command implements CommandExecutor {
                                 p.sendMessage(st + ChatColor.DARK_RED + "접근권한이 없습니다.");
                             }
                         } else if (strings[0].equalsIgnoreCase("인디언포커")) {
-                            if (itemcheck(p) != true || sleepcheck(p) != true) {
+                            if (!itemcheck(p) || !sleepcheck(p)) {
                                 p.sendTitle(st, ChatColor.AQUA + "아이템을 들거나 자는 상태에서 해당 명령어를 치시면 안됩니다.", 5, 50, 5);
                                 return true;
                             }
@@ -364,8 +363,8 @@ public class Command implements CommandExecutor {
                                             return true;
                                         }
                                         Player target = Bukkit.getServer().getPlayer(UUID.fromString(Hashmap.getrequester(p.getUniqueId().toString())));
-                                       if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(p.getName())) {
-                                            p.sendMessage(st + ChatColor.RED + "현재 게임에 참여할 수 있는 상태가 아닙니다.");
+                                       if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName())) {
+                                            p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
                                             Hashmap.delrequest(p.getUniqueId().toString());
                                             return true;
                                         }
@@ -407,8 +406,8 @@ public class Command implements CommandExecutor {
                                                     p.sendMessage(st + ChatColor.DARK_RED + "해당 플레이어는 온라인이 아닙니다..");
                                                 else {
                                                     Player target = Bukkit.getServer().getPlayer(strings[2]);
-                                                    if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(p.getName())){
-                                                        p.sendMessage(st + ChatColor.RED + "현재 게임에 참여할 수 있는 상태가 아닙니다.");
+                                                    if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName())){
+                                                        p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
                                                         return true;
                                                     }
                                                     if (instance.econ.getBalance(target) < betmoney || instance.econ.getBalance(p) < betmoney)
@@ -474,8 +473,8 @@ public class Command implements CommandExecutor {
                                             return true;
                                         }
                                         Player target = Bukkit.getServer().getPlayer(UUID.fromString(Hashmap.getcardrequester(p.getUniqueId().toString())));
-                                        if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(p.getName())) {
-                                            p.sendMessage(st + ChatColor.RED + "현재 게임에 참여할 수 있는 상태가 아닙니다.");
+                                        if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName())) {
+                                            p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
                                             Hashmap.delcardrequest(p.getUniqueId().toString());
                                             return true;
                                         }
@@ -518,7 +517,7 @@ public class Command implements CommandExecutor {
                                                 else {
                                                     Player target = Bukkit.getServer().getPlayer(strings[2]);
                                                     if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(p.getName())){
-                                                        p.sendMessage(st + ChatColor.RED + "현재 게임에 참여할 수 있는 상태가 아닙니다.");
+                                                        p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
                                                         return true;
                                                     }
                                                     if (instance.econ.getBalance(target) < betmoney || instance.econ.getBalance(p) < betmoney)
@@ -913,13 +912,10 @@ public class Command implements CommandExecutor {
         return false;
     }
     public boolean itemcheck(Player p){
-        if (p.getInventory().getItemInMainHand().getType() != Material.AIR || p.getInventory().getItemInOffHand().getType() != Material.AIR){
-            return false;
-        }
-        return true;
+        return p.getInventory().getItemInMainHand().getType() == Material.AIR && p.getInventory().getItemInOffHand().getType() == Material.AIR;
     }
     public boolean sleepcheck(Player p){
-        if (p.isSleeping() == true){
+        if (p.isSleeping()){
             return false;
         }
         return true;
