@@ -364,8 +364,8 @@ public class Command implements CommandExecutor {
                                             return true;
                                         }
                                         Player target = Bukkit.getServer().getPlayer(UUID.fromString(Hashmap.getrequester(p.getUniqueId().toString())));
-                                       if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName())) {
-                                            p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
+                                       if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(p.getName())) {
+                                            p.sendMessage(st + ChatColor.RED + "현재 게임에 참여할 수 있는 상태가 아닙니다.");
                                             Hashmap.delrequest(p.getUniqueId().toString());
                                             return true;
                                         }
@@ -407,8 +407,8 @@ public class Command implements CommandExecutor {
                                                     p.sendMessage(st + ChatColor.DARK_RED + "해당 플레이어는 온라인이 아닙니다..");
                                                 else {
                                                     Player target = Bukkit.getServer().getPlayer(strings[2]);
-                                                    if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName())){
-                                                        p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
+                                                    if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(p.getName())){
+                                                        p.sendMessage(st + ChatColor.RED + "현재 게임에 참여할 수 있는 상태가 아닙니다.");
                                                         return true;
                                                     }
                                                     if (instance.econ.getBalance(target) < betmoney || instance.econ.getBalance(p) < betmoney)
@@ -474,8 +474,8 @@ public class Command implements CommandExecutor {
                                             return true;
                                         }
                                         Player target = Bukkit.getServer().getPlayer(UUID.fromString(Hashmap.getcardrequester(p.getUniqueId().toString())));
-                                        if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName())) {
-                                            p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
+                                        if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(p.getName())) {
+                                            p.sendMessage(st + ChatColor.RED + "현재 게임에 참여할 수 있는 상태가 아닙니다.");
                                             Hashmap.delcardrequest(p.getUniqueId().toString());
                                             return true;
                                         }
@@ -518,7 +518,7 @@ public class Command implements CommandExecutor {
                                                 else {
                                                     Player target = Bukkit.getServer().getPlayer(strings[2]);
                                                     if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(p.getName())){
-                                                        p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
+                                                        p.sendMessage(st + ChatColor.RED + "현재 게임에 참여할 수 있는 상태가 아닙니다.");
                                                         return true;
                                                     }
                                                     if (instance.econ.getBalance(target) < betmoney || instance.econ.getBalance(p) < betmoney)
