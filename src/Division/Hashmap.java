@@ -1,6 +1,5 @@
 package Division;
 
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

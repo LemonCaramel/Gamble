@@ -15,7 +15,6 @@ import java.util.UUID;
 
 public class Command implements CommandExecutor {
     private Main instance;
-    private Player p;
     public static String st = ChatColor.RED + "[ " + ChatColor.WHITE + "Gambling " + ChatColor.RED + "] ";
     public Command(){
         instance = JavaPlugin.getPlugin(Main.class);
@@ -27,11 +26,11 @@ public class Command implements CommandExecutor {
                 commandSender.sendMessage(st + ChatColor.WHITE + "콘솔은 사용 불가능한 명령어 입니다.");
             }
             else {
-                p = (Player) commandSender;
+                Player p = (Player) commandSender;
                 if (Blacklist.findplayer(p)) {
                     p.sendTitle(st, ChatColor.RED + "당신은 블랙리스트에 등재되어 있습니다.", 5, 50, 5);
                 }
-                else if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(p.getName()) && GameVars.WaitPlayers.contains(p.getName())){
+                else if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(p.getUniqueId()) && GameVars.WaitPlayers.contains(p.getUniqueId())){
                     p.sendTitle(st, ChatColor.RED + "게임도중 도박을 진행 하실 수 없습니다. /나가기", 5, 50, 5);
                 }
                 else if (strings.length == 0) {
@@ -363,7 +362,7 @@ public class Command implements CommandExecutor {
                                             return true;
                                         }
                                         Player target = Bukkit.getServer().getPlayer(UUID.fromString(Hashmap.getrequester(p.getUniqueId().toString())));
-                                       if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName())) {
+                                       if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getUniqueId()) && GameVars.WaitPlayers.contains(target.getUniqueId())) {
                                             p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
                                             Hashmap.delrequest(p.getUniqueId().toString());
                                             return true;
@@ -406,7 +405,7 @@ public class Command implements CommandExecutor {
                                                     p.sendMessage(st + ChatColor.DARK_RED + "해당 플레이어는 온라인이 아닙니다..");
                                                 else {
                                                     Player target = Bukkit.getServer().getPlayer(strings[2]);
-                                                    if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName())){
+                                                    if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getUniqueId()) && GameVars.WaitPlayers.contains(target.getUniqueId())){
                                                         p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
                                                         return true;
                                                     }
@@ -437,7 +436,7 @@ public class Command implements CommandExecutor {
                                 }
                             }
                         } else if (strings[0].equalsIgnoreCase("카드")) {
-                            if (itemcheck(p) != true || sleepcheck(p) != true) {
+                            if (!itemcheck(p) || !sleepcheck(p)) {
                                 p.sendTitle(st, ChatColor.AQUA + "아이템을 들거나 자는 상태에서 해당 명령어를 치시면 안됩니다.", 5, 50, 5);
                                 return true;
                             }
@@ -473,7 +472,7 @@ public class Command implements CommandExecutor {
                                             return true;
                                         }
                                         Player target = Bukkit.getServer().getPlayer(UUID.fromString(Hashmap.getcardrequester(p.getUniqueId().toString())));
-                                        if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName())) {
+                                        if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getUniqueId()) && GameVars.WaitPlayers.contains(target.getUniqueId())) {
                                             p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
                                             Hashmap.delcardrequest(p.getUniqueId().toString());
                                             return true;
@@ -516,7 +515,7 @@ public class Command implements CommandExecutor {
                                                     p.sendMessage(st + ChatColor.DARK_RED + "해당 플레이어는 온라인이 아닙니다..");
                                                 else {
                                                     Player target = Bukkit.getServer().getPlayer(strings[2]);
-                                                    if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(target.getName()) && GameVars.WaitPlayers.contains(p.getName())){
+                                                    if (moe.caramel.counterzombie.database.GameVars.isGameing  && moe.caramel.counterzombie.database.GameVars.GamePlayers.contains(target.getUniqueId()) && GameVars.WaitPlayers.contains(target.getUniqueId()) && GameVars.WaitPlayers.contains(p.getUniqueId())){
                                                         p.sendMessage(st + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
                                                         return true;
                                                     }
@@ -915,9 +914,6 @@ public class Command implements CommandExecutor {
         return p.getInventory().getItemInMainHand().getType() == Material.AIR && p.getInventory().getItemInOffHand().getType() == Material.AIR;
     }
     public boolean sleepcheck(Player p){
-        if (p.isSleeping()){
-            return false;
-        }
-        return true;
+        return !p.isSleeping();
     }
 }

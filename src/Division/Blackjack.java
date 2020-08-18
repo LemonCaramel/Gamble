@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -16,19 +15,18 @@ import java.util.List;
 public class Blackjack {
     private String st = Command.st;
     private ItemStack edge;
-    private ItemMeta edgemeta;
     private Player p;
     private ItemStack[] items;
     private ItemMeta[] metas;
-    private List lore;
+    private ArrayList<String> lore;
     public Blackjack(Player p){
         edge = new ItemStack(Material.IRON_FENCE);
-        edgemeta = edge.getItemMeta();
+        ItemMeta edgemeta = edge.getItemMeta();
         edgemeta.setDisplayName(ChatColor.DARK_GRAY + "[ " + ChatColor.GRAY + "- " + ChatColor.DARK_GRAY + "]");
         edge.setItemMeta(edgemeta);
         items = new ItemStack[5];
         metas = new ItemMeta[5];
-        lore = new ArrayList();
+        lore = new ArrayList<>();
         this.p = p;
     }
     public void openblack(){
@@ -203,7 +201,7 @@ public class Blackjack {
             },20);
         }
         else{
-            List lore = new ArrayList();
+            ArrayList<String> lore = new ArrayList();
             ItemStack foot = new ItemStack(Material.RABBIT_FOOT);
             ItemMeta meta;
             meta = foot.getItemMeta();
