@@ -10,7 +10,6 @@ import com.division.file.GambleLogger;
 import com.division.game.gambles.*;
 import com.division.util.EconomyAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -115,23 +114,23 @@ public class GambleCommand implements CommandExecutor {
                             if (arg[1].equalsIgnoreCase("룰") || arg[1].equalsIgnoreCase("베팅")) {
                                 if (arg[1].equalsIgnoreCase("룰")) {
                                     p.sendMessage(" ");
-                                    p.sendMessage(header + ChatColor.WHITE + "/도박 블랙잭 베팅 <금액> 명령어로 블랙잭 게임을 시작합니다.");
-                                    p.sendMessage(header + ChatColor.WHITE + "컴퓨터는 딜러로, 추가적인 베팅을 진행하지 않습니다.");
-                                    p.sendMessage(header + ChatColor.AQUA + "일반 승리시 베팅한 금액 만큼, 블랙잭시 베팅한 금액의 50%를 추가로 받습니다.");
-                                    p.sendMessage(header + ChatColor.GREEN + "기본 룰은 지급 받은 카드의 숫자의 합을 21에 가깝게 유지하면 됩니다.");
-                                    p.sendMessage(header + ChatColor.RED + "Hit 버튼을 우클릭 하게 될경우 베팅액의 100%를 추가로 베팅하며, 한장만 받고 Stay가 됩니다.");
-                                    p.sendMessage(header + ChatColor.DARK_RED + "A는 1 또는 11, Q/J/K는 10으로 취급합니다.");
-                                    p.sendMessage(header + ChatColor.WHITE + "카드는 딜러와 플레이어 둘다 2장씩 지급되며, 원하는 만큼 뽑으실 수 있습니다.");
-                                    p.sendMessage(header + ChatColor.RED + "단, 카드의 숫자합이 21을 넘어가는 순간 패배하게 됩니다. (버스트)");
-                                    p.sendMessage(header + ChatColor.WHITE + "처음 지급받은 2개의 카드의 숫자합이 21이라면 블랙잭 승리가 됩니다.");
-                                    p.sendMessage(header + ChatColor.WHITE + "딜러가 블랙잭 승리일경우 절대 승리할 수 없습니다.");
-                                    p.sendMessage(header + ChatColor.RED + "딜러의 처음 공개된 카드가 A / Q / J / K인경우 insurance(보험)을 들수 있습니다.");
-                                    p.sendMessage(header + ChatColor.WHITE + "보험의 경우 베팅금의 50%를 제거 하는대신 딜러가 블랙잭인 경우");
-                                    p.sendMessage(header + ChatColor.WHITE + "보험 지불액의 2배 (원금)을 받게 됩니다. (딜러 A공개시 활성화)");
-                                    p.sendMessage(header + ChatColor.WHITE + "Insurance가 활성화 되어있을시 당신의 패 (종이)를 클릭해서 거부할 수 있습니다.");
-                                    p.sendMessage(header + ChatColor.WHITE + "그 외의 경우 딜러의 카드 숫자합이 플레이어 보다 높은경우 딜러 승리,");
-                                    p.sendMessage(header + ChatColor.WHITE + "플레이어 보다 낮은경우 플레이어 승리가 되며, 비길경우 베팅한 금액을 그대로 지급합니다.");
-                                    p.sendMessage(header + ChatColor.AQUA + "딜러의 카드는 플레이어의 차례가 끝날때 공개하며, 버스트가 발생할 수도 있습니다.");
+                                    p.sendMessage(header + "§f/도박 블랙잭 베팅 <금액> 명령어로 블랙잭 게임을 시작합니다.");
+                                    p.sendMessage(header + "§f컴퓨터는 딜러로, 추가적인 베팅을 진행하지 않습니다.");
+                                    p.sendMessage(header + "§b일반 승리시 베팅한 금액 만큼, 블랙잭시 베팅한 금액의 50%를 추가로 받습니다.");
+                                    p.sendMessage(header + "§a기본 룰은 지급 받은 카드의 숫자의 합을 21에 가깝게 유지하면 됩니다.");
+                                    p.sendMessage(header + "§cHit 버튼을 우클릭 하게 될경우 베팅액의 100%를 추가로 베팅하며, 한장만 받고 Stay가 됩니다.");
+                                    p.sendMessage(header + "§4A는 1 또는 11, Q/J/K는 10으로 취급합니다.");
+                                    p.sendMessage(header + "§f카드는 딜러와 플레이어 둘다 2장씩 지급되며, 원하는 만큼 뽑으실 수 있습니다.");
+                                    p.sendMessage(header + "§c단, 카드의 숫자합이 21을 넘어가는 순간 패배하게 됩니다. (버스트)");
+                                    p.sendMessage(header + "§f처음 지급받은 2개의 카드의 숫자합이 21이라면 블랙잭 승리가 됩니다.");
+                                    p.sendMessage(header + "§f딜러가 블랙잭 승리일경우 절대 승리할 수 없습니다.");
+                                    p.sendMessage(header + "§c딜러의 처음 공개된 카드가 A / Q / J / K인경우 insurance(보험)을 들수 있습니다.");
+                                    p.sendMessage(header + "§f보험의 경우 베팅금의 50%를 제거 하는대신 딜러가 블랙잭인 경우");
+                                    p.sendMessage(header + "§f보험 지불액의 2배 (원금)을 받게 됩니다. (딜러 A공개시 활성화)");
+                                    p.sendMessage(header + "§fInsurance가 활성화 되어있을시 당신의 패 (종이)를 클릭해서 거부할 수 있습니다.");
+                                    p.sendMessage(header + "§f그 외의 경우 딜러의 카드 숫자합이 플레이어 보다 높은경우 딜러 승리,");
+                                    p.sendMessage(header + "§f플레이어 보다 낮은경우 플레이어 승리가 되며, 비길경우 베팅한 금액을 그대로 지급합니다.");
+                                    p.sendMessage(header + "§b딜러의 카드는 플레이어의 차례가 끝날때 공개하며, 버스트가 발생할 수도 있습니다.");
                                     p.sendMessage(" ");
                                 }
                                 else if (arg[1].equalsIgnoreCase("베팅")) {
@@ -145,10 +144,10 @@ public class GambleCommand implements CommandExecutor {
                                                 p.sendMessage(header + "§c돈이 부족합니다..");
                                             }
                                             else if (value < DataManager.getInstance().getBlackjackMin()) {
-                                                p.sendMessage(header + ChatColor.RED + "최소 베팅금액보다 적습니다. §8[ §6" + DataManager.getInstance().getBlackjackMin() + "§f원 §8]");
+                                                p.sendMessage(header + "§c최소 베팅금액보다 적습니다. §8[ §6" + DataManager.getInstance().getBlackjackMin() + "§f원 §8]");
                                             }
                                             else if (value > DataManager.getInstance().getBlackjackMax()) {
-                                                p.sendMessage(header + ChatColor.RED + "최대 베팅금액보다 많습니다. §8[ §6" + DataManager.getInstance().getBlackjackMax() + "§f원 §8]");
+                                                p.sendMessage(header + "§c최대 베팅금액보다 많습니다. §8[ §6" + DataManager.getInstance().getBlackjackMax() + "§f원 §8]");
                                             }
                                             else {
                                                 EconomyAPI.getInstance().steelMoney(p, value);
@@ -170,16 +169,16 @@ public class GambleCommand implements CommandExecutor {
                             if (arg[1].equalsIgnoreCase("설명") || arg[1].equalsIgnoreCase("베팅")) {
                                 if (arg[1].equalsIgnoreCase("설명")) {
                                     p.sendMessage(" ");
-                                    p.sendMessage(header + ChatColor.AQUA + "/도박 룰렛 베팅 <금액> 명령어로 베팅 후 게임을 시작합니다.");
-                                    p.sendMessage(header + ChatColor.WHITE + "가운데에 위치한 버튼을 누를 시 룰렛이 돌아갑니다.");
-                                    p.sendMessage(header + ChatColor.WHITE + "3개는 꽝, 나머지 3개는 배율이 적혀있습니다.");
-                                    p.sendMessage(header + ChatColor.RED + "룰렛이 멈췄을때 붉게 표시된 부분의 보상을 흭득합니다.");
-                                    p.sendMessage(header + ChatColor.DARK_RED + "배율이 적힌 부분에 멈췄을때, 베팅액 x 배율의 금액을 흭득합니다!");
+                                    p.sendMessage(header + "§b/도박 룰렛 베팅 <금액> 명령어로 베팅 후 게임을 시작합니다.");
+                                    p.sendMessage(header + "§f가운데에 위치한 버튼을 누를 시 룰렛이 돌아갑니다.");
+                                    p.sendMessage(header + "§b3개는 꽝, 나머지 3개는 배율이 적혀있습니다.");
+                                    p.sendMessage(header + "§c룰렛이 멈췄을때 붉게 표시된 부분의 보상을 흭득합니다.");
+                                    p.sendMessage(header + "§4배율이 적힌 부분에 멈췄을때, 베팅액 x 배율의 금액을 흭득합니다!");
                                     p.sendMessage(" ");
                                 }
                                 else {
                                     if (arg.length == 2) {
-                                        p.sendMessage(header + ChatColor.WHITE + "베팅 금액을 적어주세요. ");
+                                        p.sendMessage(header + "§f베팅 금액을 적어주세요. ");
                                     }
                                     else {
                                         if (checkIntParameter(arg[2])) {
@@ -188,10 +187,10 @@ public class GambleCommand implements CommandExecutor {
                                                 p.sendMessage(header + "§c돈이 부족합니다..");
                                             }
                                             else if (value < DataManager.getInstance().getRouletteMin()) {
-                                                p.sendMessage(header + ChatColor.RED + "최소 베팅금액보다 적습니다. §8[ §6" + DataManager.getInstance().getRouletteMin() + "§f원 §8]");
+                                                p.sendMessage(header + "§c최소 베팅금액보다 적습니다. §8[ §6" + DataManager.getInstance().getRouletteMin() + "§f원 §8]");
                                             }
                                             else if (value > DataManager.getInstance().getRouletteMax()) {
-                                                p.sendMessage(header + ChatColor.RED + "최대 베팅금액보다 많습니다. §8[ §6" + DataManager.getInstance().getRouletteMax() + "§f원 §8]");
+                                                p.sendMessage(header + "§c최대 베팅금액보다 많습니다. §8[ §6" + DataManager.getInstance().getRouletteMax() + "§f원 §8]");
                                             }
                                             else {
                                                 EconomyAPI.getInstance().steelMoney(p, value);
@@ -270,11 +269,11 @@ public class GambleCommand implements CommandExecutor {
                             else if (arg[1].equalsIgnoreCase("거부")) {
                                 if (IndianData.getInstance().findPlayer(p.getUniqueId()) != IndianData.RequestType.NONE) {
                                     IndianData.getInstance().remove(p.getUniqueId());
-                                    p.sendMessage(header + ChatColor.RED + "모든 요청을 제거하였습니다.");
+                                    p.sendMessage(header + "§c모든 요청을 제거하였습니다.");
                                     GambleLogger.getInstance().addLog(p.getName() + "님이 인디언포커 요청 거부");
                                 }
                                 else
-                                    p.sendMessage(header + ChatColor.RED + "현재 들어온 요청이 없습니다.");
+                                    p.sendMessage(header + "§c현재 들어온 요청이 없습니다.");
                             }
                             else {
                                 if (arg.length == 4) {
@@ -338,7 +337,7 @@ public class GambleCommand implements CommandExecutor {
                                 CardData.ResponseType type = CardData.getInstance().findPlayer(p.getUniqueId());
                                 switch (type) {
                                     case REQUESTER:
-                                        p.sendMessage(header + ChatColor.AQUA + "이미 다른사람에게 요청중인 게임이 존재합니다.");
+                                        p.sendMessage(header + "§b이미 다른사람에게 요청중인 게임이 존재합니다.");
                                         break;
                                     case TARGET:
                                         Player target = Bukkit.getPlayer(CardData.getInstance().getTarget(p.getUniqueId()));
@@ -351,7 +350,7 @@ public class GambleCommand implements CommandExecutor {
                                             CardData.getInstance().remove(p.getUniqueId());
                                         }
                                         else if (EconomyAPI.getInstance().getMoney(p) < CardData.getInstance().getMoney(target.getUniqueId()) || EconomyAPI.getInstance().getMoney(target) < CardData.getInstance().getMoney(target.getUniqueId())) {
-                                            p.sendMessage(header + ChatColor.RED + "해당 플레이어 혹은 당신의 돈이 모자라므로 요청이 삭제됩니다.");
+                                            p.sendMessage(header + "§c해당 플레이어 혹은 당신의 돈이 모자라므로 요청이 삭제됩니다.");
                                             CardData.getInstance().remove(p.getUniqueId());
                                         }
                                         else {
@@ -375,7 +374,7 @@ public class GambleCommand implements CommandExecutor {
                                     GambleLogger.getInstance().addLog(p.getName() + "님이 카드도박 요청 취소");
                                 }
                                 else
-                                    p.sendMessage(header + ChatColor.RED + "현재 들어온 요청이 없습니다.");
+                                    p.sendMessage(header + "§c현재 들어온 요청이 없습니다.");
                             }
                             else {
                                 if (arg.length == 4) {
@@ -388,16 +387,16 @@ public class GambleCommand implements CommandExecutor {
                                         else {
                                             Player target = Bukkit.getServer().getPlayer(arg[2]);
                                             if (target == null || p.getName().equalsIgnoreCase(target.getName()))
-                                                p.sendMessage(header + ChatColor.DARK_RED + "해당 플레이어는 온라인이 아닙니다..");
+                                                p.sendMessage(header + "§4해당 플레이어는 온라인이 아닙니다..");
                                             else {
                                                 if (checkPlayer(target) != DenyReason.NONE) {
-                                                    p.sendMessage(header + ChatColor.RED + "대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
+                                                    p.sendMessage(header + "§c대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
                                                 }
                                                 else if (EconomyAPI.getInstance().getMoney(p) < value || EconomyAPI.getInstance().getMoney(target) < value)
-                                                    p.sendMessage(header + ChatColor.RED + "대상 플레이어나 플레이어가 최대 금액을 보유하고 있지 않습니다.");
+                                                    p.sendMessage(header + "§c대상 플레이어나 플레이어가 최대 금액을 보유하고 있지 않습니다.");
                                                 else {
                                                     if (CardData.getInstance().findPlayer(p.getUniqueId()) != CardData.ResponseType.NONE || CardData.getInstance().findPlayer(target.getUniqueId()) != CardData.ResponseType.NONE)
-                                                        p.sendMessage(header + ChatColor.RED + "이미 게임을 요청한 사람이 존재합니다.");
+                                                        p.sendMessage(header + "§c이미 게임을 요청한 사람이 존재합니다.");
                                                     else {
                                                         CardData.getInstance().addValue(p.getUniqueId(), target.getUniqueId(), value);
                                                         p.sendMessage(header + "§b" + target.getName() + "§f님에게 §c카드 도박§f요청을 넣었습니다.");
@@ -448,7 +447,7 @@ public class GambleCommand implements CommandExecutor {
                                     else if (checkIntParameter(arg[2])) {
                                         int input = Integer.parseInt(arg[2]) - 1;
                                         if (DataManager.getInstance().getBlacklist().size() <= input)
-                                            p.sendMessage(header + ChatColor.RED + "인덱스 범위를 벗어났습니다.");
+                                            p.sendMessage(header + "§c인덱스 범위를 벗어났습니다.");
                                         else {
                                             DataManager.getInstance().getBlacklist().remove(input);
                                             GambleLogger.getInstance().addLog(p.getName() + "님이 블랙리스트의 " + (input + 1) + "번째 인덱스를 삭제함.");
@@ -458,7 +457,7 @@ public class GambleCommand implements CommandExecutor {
                                 }
                                 else if (arg[1].equalsIgnoreCase("목록")) {
                                     if (DataManager.getInstance().getBlacklist().size() == 0)
-                                        p.sendMessage(header + ChatColor.RED + "현재 블랙리스트 목록이 구성되어 있지 않습니다.");
+                                        p.sendMessage(header + "§c현재 블랙리스트 목록이 구성되어 있지 않습니다.");
                                     else {
                                         int i = 1;
                                         p.sendMessage(" ");
