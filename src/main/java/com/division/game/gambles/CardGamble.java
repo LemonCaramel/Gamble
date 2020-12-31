@@ -4,7 +4,6 @@ import com.division.Gamble;
 import com.division.data.CardData;
 import com.division.data.DataManager;
 import com.division.data.GameData;
-import com.division.data.IndianData;
 import com.division.game.Game;
 import com.division.util.EconomyAPI;
 import com.division.util.InventoryUtil;
