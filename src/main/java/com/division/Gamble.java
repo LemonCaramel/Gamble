@@ -3,7 +3,6 @@ package com.division;
 import com.division.command.GambleCommand;
 import com.division.file.ConfigManager;
 import com.division.file.GambleLogger;
-import com.division.listener.ClickEvent;
 import com.division.listener.InventoryClickListener;
 import com.division.listener.InventoryCloseListener;
 import org.bukkit.Bukkit;
