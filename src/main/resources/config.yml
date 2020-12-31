@@ -1,0 +1,22 @@
+#Don't Edit this config file with Editor!
+slot:
+  min: 100
+  count: 1.0
+dice:
+  min: 500
+  max: 4000
+blackjack:
+  min: 500
+  max: 4000
+roulette:
+  min: 500
+  max: 2000
+coin:
+  min: 100
+indian:
+  min: 1000
+  max: 4000
+card:
+  min: 1000
+  max: 4000
+blacklist:

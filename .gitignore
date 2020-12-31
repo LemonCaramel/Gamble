@@ -1,0 +1,10 @@
+# Project exclude paths
+/out/lib/
+src/main/java/lib/
+.idea\
+.idea/
+.idea
+src/Division/
+target/
+target\
+target
