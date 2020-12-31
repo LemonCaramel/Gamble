@@ -10,7 +10,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class ConfigManager {
@@ -70,6 +69,7 @@ public class ConfigManager {
         manager.setIndianMax(config.getInt("indian.max", 4000));
         manager.setCardMin(config.getInt("card.min", 1000));
         manager.setCardMax(config.getInt("card.max", 4000));
+        manager.getBlacklist().clear();
         config.getStringList("blacklist").forEach(value -> {
             try {
                 manager.addBlackList(UUID.fromString(value));
@@ -82,6 +82,7 @@ public class ConfigManager {
 
     public void saveData() {
         DataManager manager = DataManager.getInstance();
+        ArrayList<String> arr = new ArrayList<>();
         config.set("slot.min", manager.getSlotMin());
         config.set("slot.count", manager.getSlotCount());
         config.set("dice.min", manager.getDiceMin());
@@ -95,8 +96,12 @@ public class ConfigManager {
         config.set("indian.max", manager.getIndianMax());
         config.set("card.min", manager.getCardMin());
         config.set("card.max", manager.getCardMax());
-        if (manager.getBlacklist().size() != 0)
-            config.set("blacklist", manager.getBlacklist());
+        if (manager.getBlacklist().size() != 0) {
+            manager.getBlacklist().forEach(data -> arr.add(data.toString()));
+            config.set("blacklist", arr);
+        }
+        else
+            config.set("blacklist", new ArrayList<>());
         save();
     }
 

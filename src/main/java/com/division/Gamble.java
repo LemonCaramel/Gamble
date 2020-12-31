@@ -14,7 +14,6 @@ public class Gamble extends JavaPlugin {
     public void onEnable() {
         getLogger().info("Gamble Enabled");
         getCommand("도박").setExecutor(new GambleCommand(this));
-        //Bukkit.getPluginManager().registerEvents(new ClickEvent(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
         ConfigManager.getInstance().loadData();

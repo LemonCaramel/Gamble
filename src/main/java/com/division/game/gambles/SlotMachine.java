@@ -68,6 +68,7 @@ public class SlotMachine implements Game {
         Player p = Bukkit.getPlayer(target);
         if (a == b && b == c) {
             String result = String.format("%.2f", DataManager.getInstance().getSlotCount() * 7 / 10);
+            double last = Math.round((DataManager.getInstance().getSlotCount() - Float.parseFloat(result)) * 100) / 100.0;
             GameData.getInstance().stopGame(target);
             p.closeInventory();
             Bukkit.getServer().broadcastMessage(" ");
@@ -75,7 +76,7 @@ public class SlotMachine implements Game {
             Bukkit.getServer().broadcastMessage(" ");
             GambleLogger.getInstance().addLog(p.getName() + "님이 잭팟으로 " + result + "원 흭득");
             EconomyAPI.getInstance().giveMoney(p, Float.parseFloat(result));
-            DataManager.getInstance().setSlotCount(DataManager.getInstance().getSlotCount() * 3 / 10);
+            DataManager.getInstance().setSlotCount(last);
         }
         else {
             p.sendTitle(header,  "§b아쉽게도 잭팟이 터지지 않았습니다.", 5, 50, 5);
