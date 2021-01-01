@@ -33,10 +33,10 @@ public class Card {
                 first = "§c♥";
                 break;
             case SPADE:
-                first = "§0♠";
+                first = "§7♠";
                 break;
             case DIAMOND:
-                first = "§a♦";
+                first = "§b♦";
                 break;
             default:
             case CLOVER:
@@ -52,7 +52,7 @@ public class Card {
         else if (shape == 13)
             second = "§fK";
         else
-            second = "§fa";
+            second = "§fA";
         return first + second;
 
     }

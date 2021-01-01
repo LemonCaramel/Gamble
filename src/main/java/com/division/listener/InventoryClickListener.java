@@ -183,6 +183,29 @@ public class InventoryClickListener implements Listener {
                     }
                 }
             }
+            else if (title.contains("포커")) {
+                event.setCancelled(true);
+                if (event.getCurrentItem() != null) {
+                    Game current = GameData.getInstance().getData(target.getUniqueId()).getCurrent();
+                    if (current instanceof Poker) {
+                        Poker poker = (Poker) current;
+                        if (event.getCurrentItem().getType() == Material.ENCHANTED_BOOK) {
+                            if (event.getRawSlot() == 21)
+                                poker.changeDeck(target.getUniqueId(), Poker.ClickSlot.ONE);
+                            else if (event.getRawSlot() == 22)
+                                poker.changeDeck(target.getUniqueId(), Poker.ClickSlot.TWO);
+                            else if (event.getRawSlot() == 23)
+                                poker.changeDeck(target.getUniqueId(), Poker.ClickSlot.THREE);
+                            else if (event.getRawSlot() == 24)
+                                poker.changeDeck(target.getUniqueId(), Poker.ClickSlot.FOUR);
+                            else if (event.getRawSlot() == 25)
+                                poker.changeDeck(target.getUniqueId(), Poker.ClickSlot.FIVE);
+                        }
+                        else if (event.getCurrentItem().getType() == Material.GLOWSTONE && event.getRawSlot() == 32)
+                            poker.changeTurn(target.getUniqueId());
+                    }
+                }
+            }
         }
     }
 }

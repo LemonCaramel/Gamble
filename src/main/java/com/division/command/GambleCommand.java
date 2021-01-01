@@ -425,6 +425,7 @@ public class GambleCommand implements CommandExecutor {
                                 p.sendMessage(header + "§f게임 시작후 카드 5장을 받게 되며 해당 카드마다 바꿀 수 있는 기회가 한번씩 주어집니다.");
                                 p.sendMessage(header + "§f카드 도박과 마찬가지로 추가 베팅이 존재하지 않으며, 승자는 모든 베팅금을 가져갑니다.");
                                 p.sendMessage(header + "§c규칙은 포커 족보대로 진행되며, 족보가 같은경우 카드간의 우열과 관계없이 무승부로 끝납니다.");
+                                p.sendMessage(header + "§fGUI내에서 상대방 머리 옆에 블럭을 통해 상대방의 차례가 끝났는지 확인할 수 있습니다.");
                                 p.sendMessage(header + "§f자세한건 /도박 포커 족보 명령어를 통해 확인할 수 있습니다.");
                                 p.sendMessage(" ");
                             }
@@ -451,7 +452,7 @@ public class GambleCommand implements CommandExecutor {
                                         else {
                                             EconomyAPI.getInstance().steelMoney(p, PokerData.getInstance().getMoney(target.getUniqueId()));
                                             EconomyAPI.getInstance().steelMoney(target, PokerData.getInstance().getMoney(target.getUniqueId()));
-                                            //new CardGamble(target.getUniqueId(), p.getUniqueId(), CardData.getInstance().getMoney(target.getUniqueId()), Plugin);
+                                            new Poker(target.getUniqueId(), p.getUniqueId(), Plugin, PokerData.getInstance().getMoney(target.getUniqueId()));
                                             GambleLogger.getInstance().addLog(p.getName() + "님이 " + target.getName() + "님의 포커 요청 수락");
                                         }
                                         break;

@@ -6,7 +6,7 @@
 
     <groupId>com.division</groupId>
     <artifactId>Gamble</artifactId>
-    <version>2.5-SNAPSHOT</version>
+    <version>2.6-STABLE</version>
     <build>
         <resources>
             <resource>
