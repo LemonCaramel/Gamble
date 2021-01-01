@@ -6,6 +6,7 @@ import com.division.file.ConfigManager;
 import com.division.file.GambleLogger;
 import com.division.game.gambles.*;
 import com.division.util.EconomyAPI;
+import moe.caramel.counterzombie.database.GameVars;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -619,8 +620,8 @@ public class GambleCommand implements CommandExecutor {
             return DenyReason.HAND;
         else if (p.isSleeping())
             return DenyReason.SLEEP;
-        /*else if (GameVars.GamePlayers.contains(p.getUniqueId()) || GameVars.WaitPlayers.contains(p.getUniqueId()))
-            return DenyReason.JOIN;*/
+        else if (GameVars.GamePlayers.contains(p.getUniqueId()) || GameVars.WaitPlayers.contains(p.getUniqueId()))
+            return DenyReason.JOIN;
         else if (DataManager.getInstance().containBlackList(p.getUniqueId()))
             return DenyReason.BLACK;
         else
