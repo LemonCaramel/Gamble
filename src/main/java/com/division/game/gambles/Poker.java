@@ -107,12 +107,9 @@ public class Poker implements Game {
 
         inv.setItem(1, offLamp);
         inv.setItem(5, help);
-
         inv.setItem(19, offLamp);
-
         invClone.setItem(1, offLamp);
         invClone.setItem(5, help);
-
         invClone.setItem(19, offLamp);
         p.openInventory(inv);
         t.openInventory(invClone);
