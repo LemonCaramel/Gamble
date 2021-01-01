@@ -1,10 +1,7 @@
 package com.division.command;
 
 import com.division.Gamble;
-import com.division.data.CardData;
-import com.division.data.DataManager;
-import com.division.data.GameData;
-import com.division.data.IndianData;
+import com.division.data.*;
 import com.division.file.ConfigManager;
 import com.division.file.GambleLogger;
 import com.division.game.gambles.*;
@@ -46,9 +43,9 @@ public class GambleCommand implements CommandExecutor {
                 sendDenyMessage(p, reason);
             else if (arg.length == 0) {
                 if (p.isOp())
-                    p.sendMessage(header + "§f/도박 <슬롯머신/주사위/블랙잭/룰렛/동전/인디언포커/카드/블랙리스트/저장/리로드>");
+                    p.sendMessage(header + "§f/도박 <슬롯머신/주사위/블랙잭/룰렛/동전/인디언포커/카드/포커/블랙리스트/저장/리로드>");
                 else
-                    p.sendMessage(header + "§f/도박 <슬롯머신/주사위/블랙잭/룰렛/동전/인디언포커/카드>");
+                    p.sendMessage(header + "§f/도박 <슬롯머신/주사위/블랙잭/룰렛/동전/인디언포커/카드/포커>");
                 p.sendMessage(header + "§c게임의 GUI가 닫혀 돈이 증발하는 문제는 개인의 잘못으로 간주하여 복구해드리지 않습니다.");
             }
             else {
@@ -399,10 +396,124 @@ public class GambleCommand implements CommandExecutor {
                                                         p.sendMessage(header + "§c이미 게임을 요청한 사람이 존재합니다.");
                                                     else {
                                                         CardData.getInstance().addValue(p.getUniqueId(), target.getUniqueId(), value);
-                                                        p.sendMessage(header + "§b" + target.getName() + "§f님에게 §c카드 도박§f요청을 넣었습니다.");
+                                                        p.sendMessage(header + "§b" + target.getName() + "§f님에게 §c카드 도박 §f요청을 넣었습니다.");
                                                         target.sendMessage(header + "§b" + p.getName() + "§f님이 당신에게 카드 도박을 요청하였습니다. §7[ §6" + value + "§f원 §7]");
                                                         target.sendMessage(header + "§b수락을 원하시면 /도박 카드 수락, §b거절을 원하시면 /도박 카드 거부");
                                                         GambleLogger.getInstance().addLog(p.getName() + "님이 " + target.getName() + "에게 카드도박 요청");
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                        p.sendMessage(header + "§4숫자만 입력하세요..");
+                                }
+                                else
+                                    p.sendMessage(header + "§f/도박 카드 시작 <대상> <최대금액>");
+
+                            }
+                        }
+                    }
+                    else if (arg[0].equalsIgnoreCase("포커")) {
+                        if (arg.length == 1) {
+                            p.sendMessage(header + "§f/도박 포커 <설명/수락/거부/시작/족보> <대상> <금액>");
+                        }
+                        else if (arg.length == 2 && arg[1].equalsIgnoreCase("설명") || arg[1].equalsIgnoreCase("시작") || arg[1].equalsIgnoreCase("수락") || arg[1].equalsIgnoreCase("거부") || arg[1].equalsIgnoreCase("족보")) {
+                            if (arg[1].equalsIgnoreCase("설명")) {
+                                p.sendMessage(" ");
+                                p.sendMessage(header + "§b/도박 포커 시작 <대상> <최대금액> 명령어로 대상에게 1대1 포커 요청을 합니다.");
+                                p.sendMessage(header + "§f게임 시작후 카드 5장을 받게 되며 해당 카드마다 바꿀 수 있는 기회가 한번씩 주어집니다.");
+                                p.sendMessage(header + "§f카드 도박과 마찬가지로 추가 베팅이 존재하지 않으며, 승자는 모든 베팅금을 가져갑니다.");
+                                p.sendMessage(header + "§c규칙은 포커 족보대로 진행되며, 족보가 같은경우 카드간의 우열과 관계없이 무승부로 끝납니다.");
+                                p.sendMessage(header + "§f자세한건 /도박 포커 족보 명령어를 통해 확인할 수 있습니다.");
+                                p.sendMessage(" ");
+                            }
+                            else if (arg[1].equalsIgnoreCase("수락")) {
+                                PokerData.Result type = PokerData.getInstance().findPlayer(p.getUniqueId());
+                                switch (type) {
+                                    case REQUESTER:
+                                        p.sendMessage(header + "§b이미 다른사람에게 요청중인 게임이 존재합니다.");
+                                        break;
+                                    case TARGET:
+                                        Player target = Bukkit.getPlayer(PokerData.getInstance().getTarget(p.getUniqueId()));
+                                        if (target == null) {
+                                            p.sendMessage(header + "§c해당 플레이어가 온라인이 아니므로 요청을 삭제합니다.");
+                                            PokerData.getInstance().remove(p.getUniqueId());
+                                        }
+                                        else if (checkPlayer(target) != DenyReason.NONE) {
+                                            p.sendMessage(header + "§c대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
+                                            PokerData.getInstance().remove(p.getUniqueId());
+                                        }
+                                        else if (EconomyAPI.getInstance().getMoney(p) < PokerData.getInstance().getMoney(target.getUniqueId()) || EconomyAPI.getInstance().getMoney(target) < PokerData.getInstance().getMoney(target.getUniqueId())) {
+                                            p.sendMessage(header + "§c해당 플레이어 혹은 당신의 돈이 모자라므로 요청이 삭제됩니다.");
+                                            PokerData.getInstance().remove(p.getUniqueId());
+                                        }
+                                        else {
+                                            EconomyAPI.getInstance().steelMoney(p, PokerData.getInstance().getMoney(target.getUniqueId()));
+                                            EconomyAPI.getInstance().steelMoney(target, PokerData.getInstance().getMoney(target.getUniqueId()));
+                                            //new CardGamble(target.getUniqueId(), p.getUniqueId(), CardData.getInstance().getMoney(target.getUniqueId()), Plugin);
+                                            GambleLogger.getInstance().addLog(p.getName() + "님이 " + target.getName() + "님의 포커 요청 수락");
+                                        }
+                                        break;
+                                    case NONE:
+                                        p.sendMessage(header + "§c현재 들어온 요청이 없습니다.");
+                                        break;
+                                }
+
+
+                            }
+                            else if (arg[1].equalsIgnoreCase("거부")) {
+                                if (PokerData.getInstance().findPlayer(p.getUniqueId()) != PokerData.Result.NONE) {
+                                    PokerData.getInstance().remove(p.getUniqueId());
+                                    p.sendMessage(header + "§c모든 요청을 제거하였습니다.");
+                                    GambleLogger.getInstance().addLog(p.getName() + "님이 포커 요청 취소");
+                                }
+                                else
+                                    p.sendMessage(header + "§c현재 들어온 요청이 없습니다.");
+                            }
+                            else if (arg[1].equalsIgnoreCase("족보")) {
+                                p.sendMessage(" ");
+                                p.sendMessage(header + "§4로얄 스트레이트 플러쉬 §7- §f같은 무늬 + 10, J, Q, K, A");
+                                p.sendMessage(header + "§b백 스트레이트 플러쉬 §7- §f같은 무늬 + A, 2, 3, 4, 5");
+                                p.sendMessage(header + "§a스트레이트 플러쉬 §7- §f같은 무늬 + 연속적인 값");
+                                p.sendMessage(header + "§c포카드 §7- §f같은 값 4장");
+                                p.sendMessage(header + "§b플러쉬 §7- §f전부다 같은 무늬");
+                                p.sendMessage(header + "§b풀하우스 §7- §f같은 값 3장 + 같은 값 2장 (트리플 + 투페어)");
+                                p.sendMessage(header + "§c마운틴 §7- §f10, J, Q, K, A");
+                                p.sendMessage(header + "§b백 스트레이트 §7- §fA, 2, 3, 4, 5");
+                                p.sendMessage(header + "§a트리플 §7- §f같은 값 3장");
+                                p.sendMessage(header + "§c투페어 §7- §f같은 값 2장 + 같은 값 2장");
+                                p.sendMessage(header + "§b원페어 §7- §f같은 값 2장");
+                                p.sendMessage(header + "§4탑 §7- §f꽝");
+                                p.sendMessage(" ");
+                            }
+                            else {
+                                if (arg.length == 4) {
+                                    if (checkIntParameter(arg[3])) {
+                                        int value = Integer.parseInt(arg[3]);
+                                        if (value < DataManager.getInstance().getPokerMin())
+                                            p.sendMessage(header + "§c최소금액보다 적습니다.. §7[ §f" + DataManager.getInstance().getPokerMin() + " §7]");
+                                        else if (value > DataManager.getInstance().getPokerMax())
+                                            p.sendMessage(header + "§c최대금액보다 많습니다.. §7[ §f" + DataManager.getInstance().getPokerMax() + " §7]");
+                                        else {
+                                            Player target = Bukkit.getServer().getPlayer(arg[2]);
+                                            if (target == null || p.getName().equalsIgnoreCase(target.getName()))
+                                                p.sendMessage(header + "§4해당 플레이어는 온라인이 아닙니다..");
+                                            else {
+                                                if (checkPlayer(target) != DenyReason.NONE) {
+                                                    p.sendMessage(header + "§c대상 플레이어가 게임에 참여할 수 있는 상태가 아닙니다.");
+                                                }
+                                                else if (EconomyAPI.getInstance().getMoney(p) < value || EconomyAPI.getInstance().getMoney(target) < value)
+                                                    p.sendMessage(header + "§c대상 플레이어나 플레이어가 최대 금액을 보유하고 있지 않습니다.");
+                                                else {
+                                                    if (PokerData.getInstance().findPlayer(p.getUniqueId()) != PokerData.Result.NONE || PokerData.getInstance().findPlayer(target.getUniqueId()) != PokerData.Result.NONE)
+                                                        p.sendMessage(header + "§c이미 게임을 요청한 사람이 존재합니다.");
+                                                    else {
+                                                        PokerData.getInstance().addValue(p.getUniqueId(), target.getUniqueId(), value);
+                                                        p.sendMessage(header + "§b" + target.getName() + "§f님에게 §c포커 §f요청을 넣었습니다.");
+                                                        target.sendMessage(header + "§b" + p.getName() + "§f님이 당신에게 포커를 요청하였습니다. §7[ §6" + value + "§f원 §7]");
+                                                        target.sendMessage(header + "§b수락을 원하시면 /도박 포커 수락, §b거절을 원하시면 /도박 포커 거부");
+                                                        GambleLogger.getInstance().addLog(p.getName() + "님이 " + target.getName() + "에게 포커 요청");
                                                     }
                                                 }
                                             }
@@ -533,7 +644,7 @@ public class GambleCommand implements CommandExecutor {
     }
 
     public boolean checkParameter(String value) {
-        return value.equalsIgnoreCase("슬롯머신") || value.equalsIgnoreCase("주사위") || value.equalsIgnoreCase("블랙잭") || value.equalsIgnoreCase("룰렛") || value.equalsIgnoreCase("인디언포커") || value.equalsIgnoreCase("카드") || value.equalsIgnoreCase("동전") || value.equalsIgnoreCase("블랙리스트") || value.equalsIgnoreCase("저장") || value.equalsIgnoreCase("리로드");
+        return value.equalsIgnoreCase("슬롯머신") || value.equalsIgnoreCase("주사위") || value.equalsIgnoreCase("블랙잭") || value.equalsIgnoreCase("룰렛") || value.equalsIgnoreCase("인디언포커") || value.equalsIgnoreCase("카드") || value.equalsIgnoreCase("동전") || value.equalsIgnoreCase("포커") || value.equalsIgnoreCase("블랙리스트") || value.equalsIgnoreCase("저장") || value.equalsIgnoreCase("리로드");
     }
 
     public boolean checkIntParameter(String value) {

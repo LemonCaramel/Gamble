@@ -69,6 +69,8 @@ public class ConfigManager {
         manager.setIndianMax(config.getInt("indian.max", 4000));
         manager.setCardMin(config.getInt("card.min", 1000));
         manager.setCardMax(config.getInt("card.max", 4000));
+        manager.setPokerMin(config.getInt("poker.min", 1000));
+        manager.setPokerMax(config.getInt("poker.max", 4000));
         manager.getBlacklist().clear();
         config.getStringList("blacklist").forEach(value -> {
             try {
@@ -96,6 +98,8 @@ public class ConfigManager {
         config.set("indian.max", manager.getIndianMax());
         config.set("card.min", manager.getCardMin());
         config.set("card.max", manager.getCardMax());
+        config.set("poker.min", manager.getPokerMin());
+        config.set("poker.max", manager.getPokerMax());
         if (manager.getBlacklist().size() != 0) {
             manager.getBlacklist().forEach(data -> arr.add(data.toString()));
             config.set("blacklist", arr);
