@@ -58,14 +58,14 @@ public class Stock implements Game {
             ItemStack stack;
             if (data.hasStock(stock)) {
                 if (StockManager.getInstance().getStock(stock).isWarning())
-                    stack = InventoryUtil.createItemStack(Material.ENCHANTED_BOOK, header + "§5" + stock, " ", " §8-  §b현재 보유중인 주식입니다.", " §8-  §f보유랑 §7: §6" + data.getAmount(stock) + "§f주", " §8-  §f현재가 §7: §6" + StockManager.getInstance().getStock(stock).getCurrent() + "§f원", " §8-  §f등락 §7: §f" + getPercent(StockManager.getInstance().getStock(stock).getPercent()), " §8-  §f평균가 §7: §c" + Math.round(data.getAccumulate(stock) / data.getAmount(stock) * 10) / 10.0 + "§f원", " §8-  §f평가금액 §7: " + Math.round(StockManager.getInstance().getStock(stock).getCurrent() * data.getAmount(stock) * 10) / 10.0 + "§f원", " §8-  §f평가손익 §7: " + getResult(data.getAccumulate(stock), Math.round(manager.getStock(stock).getCurrent() * data.getAmount(stock) * 10) / 10.0), " §8-  §f수익률 §7: " + getPercent(data.getAccumulate(stock), data.getAmount(stock) * Math.round(manager.getStock(stock).getCurrent() * 10) / 10.0), " §8-  §f우클릭시 1주 구매, 쉬프트 우클릭시 10주 구매", " §8-  §f좌클릭시 1주 판매, 쉬프트 좌클릭시 전체 판매", " ");
+                    stack = InventoryUtil.createItemStack(Material.ENCHANTED_BOOK, header + "§5" + stock, " ", " §8-  §b현재 보유중인 주식입니다.", " §8-  §f보유랑 §7: §6" + data.getAmount(stock) + "§f주", " §8-  §f현재가 §7: §6" + manager.getStock(stock).getCurrent() + "§f원", " §8-  §f등락 §7: §f" + getPercent(manager.getStock(stock).getPercent()), " §8-  §f평균가 §7: §c" + Math.round(data.getAccumulate(stock) / data.getAmount(stock) * 10) / 10.0 + "§f원", " §8-  §f평가금액 §7: " + Math.round(manager.getStock(stock).getCurrent() * data.getAmount(stock) * 10) / 10.0 + "§f원", " §8-  §f평가손익 §7: " + getResult(data.getAccumulate(stock), Math.round(manager.getStock(stock).getCurrent() * data.getAmount(stock) * 10) / 10.0), " §8-  §f수익률 §7: " + getPercent(data.getAccumulate(stock), data.getAmount(stock) * manager.getStock(stock).getCurrent()), " §8-  §f우클릭시 1주 구매, 쉬프트 우클릭시 10주 구매", " §8-  §f좌클릭시 1주 판매, 쉬프트 좌클릭시 전체 판매", " ");
 
                 else
-                    stack = InventoryUtil.createItemStack(Material.ENCHANTED_BOOK, header + "§f" + stock, " ", " §8-  §b현재 보유중인 주식입니다.", " §8-  §f보유랑 §7: §6" + data.getAmount(stock) + "§f주", " §8-  §f현재가 §7: §6" + StockManager.getInstance().getStock(stock).getCurrent() + "§f원", " §8-  §f등락 §7: §f" + getPercent(StockManager.getInstance().getStock(stock).getPercent()), " §8-  §f평균가 §7: §c" + Math.round(data.getAccumulate(stock) / data.getAmount(stock) * 10) / 10.0 + "§f원", " §8-  §f평가금액 §7: " + Math.round(StockManager.getInstance().getStock(stock).getCurrent() * data.getAmount(stock) * 10) / 10.0 + "§f원", " §8-  §f평가손익 §7: " + getResult(data.getAccumulate(stock), Math.round(manager.getStock(stock).getCurrent() * data.getAmount(stock) * 10) / 10.0), " §8-  §f수익률 §7: " + getPercent(data.getAccumulate(stock), data.getAmount(stock) * Math.round(manager.getStock(stock).getCurrent() * 10) / 10.0), " §8-  §f우클릭시 1주 구매, 쉬프트 우클릭시 10주 구매", " §8-  §f좌클릭시 1주 판매, 쉬프트 좌클릭시 전체 판매", " ");
+                    stack = InventoryUtil.createItemStack(Material.ENCHANTED_BOOK, header + "§f" + stock, " ", " §8-  §b현재 보유중인 주식입니다.", " §8-  §f보유랑 §7: §6" + data.getAmount(stock) + "§f주", " §8-  §f현재가 §7: §6" + manager.getStock(stock).getCurrent() + "§f원", " §8-  §f등락 §7: §f" + getPercent(manager.getStock(stock).getPercent()), " §8-  §f평균가 §7: §c" + Math.round(data.getAccumulate(stock) / data.getAmount(stock) * 10) / 10.0 + "§f원", " §8-  §f평가금액 §7: " + Math.round(manager.getStock(stock).getCurrent() * data.getAmount(stock) * 10) / 10.0 + "§f원", " §8-  §f평가손익 §7: " + getResult(data.getAccumulate(stock), Math.round(manager.getStock(stock).getCurrent() * data.getAmount(stock) * 10) / 10.0), " §8-  §f수익률 §7: " + getPercent(data.getAccumulate(stock), data.getAmount(stock) * manager.getStock(stock).getCurrent()), " §8-  §f우클릭시 1주 구매, 쉬프트 우클릭시 10주 구매", " §8-  §f좌클릭시 1주 판매, 쉬프트 좌클릭시 전체 판매", " ");
 
             }
             else {
-                stack = InventoryUtil.createItemStack(Material.BOOK, header + "§f" + stock, " ", " §8-  §c현재 보유하고 있지 않는 주식입니다.", " §8-  §f현재가 §7: §6" + StockManager.getInstance().getStock(stock).getCurrent() + "§f원", " §8-  §f등락 §7: §f" + getPercent(StockManager.getInstance().getStock(stock).getPercent()), " §8-  §f우클릭시 1주 구매, 쉬프트 우클릭시 10주 구매", " §8-  §f좌클릭시 1주 판매, 쉬프트 좌클릭시 전체 판매", " ");
+                stack = InventoryUtil.createItemStack(Material.BOOK, header + "§f" + stock, " ", " §8-  §c현재 보유하고 있지 않는 주식입니다.", " §8-  §f현재가 §7: §6" + manager.getStock(stock).getCurrent() + "§f원", " §8-  §f등락 §7: §f" + getPercent(StockManager.getInstance().getStock(stock).getPercent()), " §8-  §f우클릭시 1주 구매, 쉬프트 우클릭시 10주 구매", " §8-  §f좌클릭시 1주 판매, 쉬프트 좌클릭시 전체 판매", " ");
             }
             p.getOpenInventory().setItem(i++, stack);
         }
@@ -112,15 +112,15 @@ public class Stock implements Game {
     }
 
     private String getPercent() {
-        double have = getStockAccumulate();
+        double have = getStockAccumulate() == 0 ? 1 : getStockAccumulate();
         double market = getMarketPrice();
-        double result = Math.abs(market - have);
-        if (have == market || have == 0)
+        int result = (int)Math.round(Math.abs(market - have) / have * 100);
+        if (have == market || have == 1)
             return "§7- 0.0%";
         else if (have < market)
-            return "§c▲ +" + Math.round(result / getStockAccumulate() * 10.0) / 10.0 * 100 + "%";
+            return "§c▲ +" + result + "%";
         else
-            return "§b▼ " + Math.round(result / getStockAccumulate() * 10.0) / 10.0 * 100 + "%";
+            return "§b▼ " + result + "%";
 
     }
 
@@ -136,7 +136,7 @@ public class Stock implements Game {
     private String getPercent(double have, double market) {
         if (have == 0)
             have = 1;
-        double result = Math.round((market - have) / have * 10.0) / 10.0 * 100;
+        int result = (int)Math.round(Math.abs(market - have) / have * 100);
         if (have < market)
             return "§c▲ +" + result + "%";
         else if (have == market || have == 1)
