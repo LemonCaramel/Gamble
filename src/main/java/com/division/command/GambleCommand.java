@@ -44,9 +44,9 @@ public class GambleCommand implements CommandExecutor {
                 sendDenyMessage(p, reason);
             else if (arg.length == 0) {
                 if (p.isOp())
-                    p.sendMessage(header + "§f/도박 <슬롯머신/주사위/블랙잭/룰렛/동전/인디언포커/카드/포커/블랙리스트/저장/리로드>");
+                    p.sendMessage(header + "§f/도박 <슬롯머신/주사위/블랙잭/룰렛/동전/인디언포커/카드/포커/주식/블랙리스트/저장/리로드>");
                 else
-                    p.sendMessage(header + "§f/도박 <슬롯머신/주사위/블랙잭/룰렛/동전/인디언포커/카드/포커>");
+                    p.sendMessage(header + "§f/도박 <슬롯머신/주사위/블랙잭/룰렛/동전/인디언포커/카드/포커/주식>");
                 p.sendMessage(header + "§c게임의 GUI가 닫혀 돈이 증발하는 문제는 개인의 잘못으로 간주하여 복구해드리지 않습니다.");
             }
             else {
@@ -530,6 +530,47 @@ public class GambleCommand implements CommandExecutor {
                             }
                         }
                     }
+                    else if (arg[0].equalsIgnoreCase("주식")) {
+                        if (arg.length >= 2 && p.isOp() && (arg[1].equalsIgnoreCase("추가") || arg[1].equalsIgnoreCase("삭제"))) {
+                            if (arg[1].equalsIgnoreCase("추가")) {
+                                if (arg.length == 5) {
+                                    if (checkIntParameter(arg[3]) && checkIntParameter(arg[4])) {
+                                        int money = Integer.parseInt(arg[3]);
+                                        int width = Integer.parseInt(arg[4]);
+                                        if (width <= 0 || money <= 0)
+                                            p.sendMessage(header + "§f0이하의 값이 올 수 없습니다.");
+                                        else if (StockManager.getInstance().getStockMap().size() == 45)
+                                            p.sendMessage(header + "§f주식이 너무 많습니다.");
+                                        else {
+                                            StockManager.getInstance().addStock(arg[2], money, width);
+                                            Bukkit.broadcastMessage(header + "§f새로운 주식이 상장되었습니다.");
+                                        }
+                                    }
+                                    else
+                                        p.sendMessage(header + "§c숫자만 입력해 주세요.");
+                                }
+                                else
+                                    p.sendMessage(header + "§f/도박 주식 추가 <이름> <가격> <변동폭>");
+                            }
+                            else {
+                                if (arg.length == 3) {
+                                    if (StockManager.getInstance().isExist(arg[2])) {
+                                        StockManager.getInstance().removeStock(arg[2]);
+                                        p.sendMessage(header + "§f해당 주식이 제거되었습니다.");
+                                    }
+                                    else
+                                        p.sendMessage(header + "§f존재하지 않는 주식입니다.");
+                                }
+                                else
+                                    p.sendMessage(header + "§f/도박 주식 삭제 <이름>");
+                            }
+                        }
+                        else if (p.isOp() && arg.length != 1)
+                            p.sendMessage(header + "§f/도박 주식 <추가/삭제>");
+                        else {
+                            new Stock(p.getUniqueId());
+                        }
+                    }
                     else if (arg[0].equalsIgnoreCase("블랙리스트")) {
                         if (p.isOp()) {
                             if (arg.length == 1) {
@@ -620,8 +661,8 @@ public class GambleCommand implements CommandExecutor {
             return DenyReason.HAND;
         else if (p.isSleeping())
             return DenyReason.SLEEP;
-        else if (GameVars.GamePlayers.contains(p.getUniqueId()) || GameVars.WaitPlayers.contains(p.getUniqueId()))
-            return DenyReason.JOIN;
+        /*else if (GameVars.GamePlayers.contains(p.getUniqueId()) || GameVars.WaitPlayers.contains(p.getUniqueId()))
+            return DenyReason.JOIN;*/
         else if (DataManager.getInstance().containBlackList(p.getUniqueId()))
             return DenyReason.BLACK;
         else
@@ -646,7 +687,7 @@ public class GambleCommand implements CommandExecutor {
     }
 
     public boolean checkParameter(String value) {
-        return value.equalsIgnoreCase("슬롯머신") || value.equalsIgnoreCase("주사위") || value.equalsIgnoreCase("블랙잭") || value.equalsIgnoreCase("룰렛") || value.equalsIgnoreCase("인디언포커") || value.equalsIgnoreCase("카드") || value.equalsIgnoreCase("동전") || value.equalsIgnoreCase("포커") || value.equalsIgnoreCase("블랙리스트") || value.equalsIgnoreCase("저장") || value.equalsIgnoreCase("리로드");
+        return value.equalsIgnoreCase("슬롯머신") || value.equalsIgnoreCase("주사위") || value.equalsIgnoreCase("블랙잭") || value.equalsIgnoreCase("룰렛") || value.equalsIgnoreCase("인디언포커") || value.equalsIgnoreCase("카드") || value.equalsIgnoreCase("동전") || value.equalsIgnoreCase("포커") || value.equalsIgnoreCase("주식") || value.equalsIgnoreCase("블랙리스트") || value.equalsIgnoreCase("저장") || value.equalsIgnoreCase("리로드");
     }
 
     public boolean checkIntParameter(String value) {

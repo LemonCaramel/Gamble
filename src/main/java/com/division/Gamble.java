@@ -1,8 +1,10 @@
 package com.division;
 
 import com.division.command.GambleCommand;
+import com.division.data.StockManager;
 import com.division.file.ConfigManager;
 import com.division.file.GambleLogger;
+import com.division.file.StockFileManager;
 import com.division.listener.InventoryClickListener;
 import com.division.listener.InventoryCloseListener;
 import org.bukkit.Bukkit;
@@ -18,6 +20,7 @@ public class Gamble extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
         ConfigManager.getInstance().loadData();
         GambleLogger.getInstance().logging();
+        StockFileManager.getInstance().load();
     }
 
     @Override
@@ -25,6 +28,7 @@ public class Gamble extends JavaPlugin {
         getLogger().info("Gamble Disabled");
         ConfigManager.getInstance().saveData();
         GambleLogger.getInstance().forceSaveLog();
+        StockFileManager.getInstance().save();
     }
 
 

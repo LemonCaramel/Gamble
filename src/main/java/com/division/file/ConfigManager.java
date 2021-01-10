@@ -2,6 +2,8 @@ package com.division.file;
 
 import com.division.Gamble;
 import com.division.data.DataManager;
+import com.division.data.StockData;
+import com.division.data.StockManager;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -80,6 +82,13 @@ public class ConfigManager {
                 Plugin.getLogger().info("error add data to blacklist : " + value);
             }
         });
+        StockManager.getInstance().setRefreshRate(config.getInt("stock-refresh", 1800));
+        StockManager.getInstance().getStockMap().clear();
+        if (config.getConfigurationSection("stock") != null) {
+            for (String key : config.getConfigurationSection("stock").getKeys(false))
+                StockManager.getInstance().addStock(key, config.getInt("stock." + key + ".initial", 500), config.getInt("stock." + key + ".width", 100), config.getInt("stock." + key + ".current", 500), config.getBoolean("stock." + key + ".warning", false));
+        }
+        StockManager.getInstance().startTask();
     }
 
     public void saveData() {
@@ -106,6 +115,15 @@ public class ConfigManager {
         }
         else
             config.set("blacklist", new ArrayList<>());
+        config.set("stock-refresh", StockManager.getInstance().getRefreshRate());
+        config.set("stock", null);
+        for (String key : StockManager.getInstance().getStockMap().keySet()) {
+            StockData data = StockManager.getInstance().getStock(key);
+            config.set("stock." + key + ".initial", data.getInitial());
+            config.set("stock." + key + ".width", data.getWidth());
+            config.set("stock." + key + ".current", data.getCurrent());
+            config.set("stock." + key + ".warning", data.isWarning());
+        }
         save();
     }
 

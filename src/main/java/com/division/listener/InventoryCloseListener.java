@@ -130,5 +130,8 @@ public class InventoryCloseListener implements Listener {
             }
             GameData.getInstance().stopGame(p.getUniqueId());
         }
+        else if (title.contains("주식")) {
+            GameData.getInstance().stopGame(p.getUniqueId());
+        }
     }
 }

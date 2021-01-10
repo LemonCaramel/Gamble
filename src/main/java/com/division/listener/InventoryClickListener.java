@@ -3,9 +3,11 @@ package com.division.listener;
 import com.division.data.CardData;
 import com.division.data.DataManager;
 import com.division.data.GameData;
+import com.division.data.StockManager;
 import com.division.file.GambleLogger;
 import com.division.game.Game;
 import com.division.game.gambles.*;
+import com.division.util.EconomyAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -124,7 +126,7 @@ public class InventoryClickListener implements Listener {
                 event.setCancelled(true);
                 if (event.getCurrentItem() != null) {
                     Game current = GameData.getInstance().getData(target.getUniqueId()).getCurrent();
-                    if (current instanceof Coin && event.getCurrentItem().getType() == Material.RECORD_3){
+                    if (current instanceof Coin && event.getCurrentItem().getType() == Material.RECORD_3) {
                         Coin coin = (Coin) current;
                         if (event.getRawSlot() == 11)
                             coin.check(Coin.Face.FRONT);
@@ -168,7 +170,7 @@ public class InventoryClickListener implements Listener {
                     if (current instanceof CardGamble) {
                         CardGamble card = (CardGamble) current;
                         Player other = Bukkit.getPlayer(CardData.getInstance().getTarget(target.getUniqueId()));
-                        if (event.getCurrentItem().getType() == Material.NOTE_BLOCK){
+                        if (event.getCurrentItem().getType() == Material.NOTE_BLOCK) {
                             other.playSound(other.getLocation(), Sound.BLOCK_NOTE_BELL, 0.7f, 1.0f);
                             target.playSound(target.getLocation(), Sound.BLOCK_NOTE_BELL, 0.7f, 1.0f);
                         }
@@ -203,6 +205,53 @@ public class InventoryClickListener implements Listener {
                         }
                         else if (event.getCurrentItem().getType() == Material.GLOWSTONE && event.getRawSlot() == 32)
                             poker.changeTurn(target.getUniqueId());
+                    }
+                }
+            }
+            else if (title.contains("주식")) {
+                event.setCancelled(true);
+                if (event.getCurrentItem() != null) {
+                    Game current = GameData.getInstance().getData(target.getUniqueId()).getCurrent();
+                    if (current instanceof Stock) {
+                        Stock stock = (Stock) current;
+                        if (event.getCurrentItem().getType() != Material.AIR && event.getCurrentItem().getItemMeta().getDisplayName() != null && event.getCurrentItem().getItemMeta().getDisplayName().contains(header)) {
+                            String stockName = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName().replace(header, "").replace(" ", ""));
+                            if (StockManager.getInstance().isExist(stockName)) {
+                                if (event.getClick() == ClickType.RIGHT) {
+                                    if (EconomyAPI.getInstance().getMoney(target) >= StockManager.getInstance().getStock(stockName).getCurrent()) {
+                                        StockManager.getInstance().getUser(target.getUniqueId()).buyStock(stockName, 1, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0);
+                                        target.sendMessage(header + "§6" + stockName + " §f주식을 1주 구매하였습니다.");
+                                        EconomyAPI.getInstance().steelMoney(target, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0);
+                                        stock.refreshGUI();
+                                    }
+                                    else
+                                        target.sendMessage(header + "§c돈이 부족합니다.");
+                                }
+                                else if (event.getClick() == ClickType.LEFT) {
+                                    if (StockManager.getInstance().getUser(target.getUniqueId()).hasStock(stockName) && StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) >= 1) {
+                                        target.sendMessage(header + "§f해당 주식 §b1§f주를 팔아 §6" + Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0 + "§f원을 받았습니다.");
+                                        StockManager.getInstance().getUser(target.getUniqueId()).sellStock(stockName, 1, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0);
+                                        EconomyAPI.getInstance().giveMoney(target, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0);
+                                        stock.refreshGUI();
+                                    }
+                                    else
+                                        target.sendMessage(header + "§c보유하고 있지 않은 주식입니다.");
+                                }
+                                else if (event.getClick() == ClickType.SHIFT_LEFT) {
+                                    if (StockManager.getInstance().getUser(target.getUniqueId()).hasStock(stockName) && StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) >= 1) {
+                                        target.sendMessage(header + "§f해당 주식 §b" + StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) + "§f주를 팔아 §6" + Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) * 10.0) / 10.0  + "§f원을 받았습니다.");
+                                        EconomyAPI.getInstance().giveMoney(target, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) * 10.0) / 10.0);
+                                        StockManager.getInstance().getUser(target.getUniqueId()).sellStock(stockName, StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName), Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0);
+                                        stock.refreshGUI();
+                                    }
+                                    else
+                                        target.sendMessage(header + "§c보유하고 있지 않은 주식입니다.");
+                                }
+                            }
+                            else
+                                target.sendMessage(header + "§c존재하지 않는 주식입니다.");
+                        }
+
                     }
                 }
             }
