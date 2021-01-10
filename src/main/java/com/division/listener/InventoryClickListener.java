@@ -227,6 +227,16 @@ public class InventoryClickListener implements Listener {
                                     else
                                         target.sendMessage(header + "§c돈이 부족합니다.");
                                 }
+                                else if (event.getClick() == ClickType.SHIFT_RIGHT) {
+                                    if (EconomyAPI.getInstance().getMoney(target) >= StockManager.getInstance().getStock(stockName).getCurrent() * 10) {
+                                        StockManager.getInstance().getUser(target.getUniqueId()).buyStock(stockName, 10, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 100.0) / 10.0);
+                                        target.sendMessage(header + "§6" + stockName + " §f주식을 10주 구매하였습니다.");
+                                        EconomyAPI.getInstance().steelMoney(target, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 100.0) / 10.0);
+                                        stock.refreshGUI();
+                                    }
+                                    else
+                                        target.sendMessage(header + "§c돈이 부족합니다.");
+                                }
                                 else if (event.getClick() == ClickType.LEFT) {
                                     if (StockManager.getInstance().getUser(target.getUniqueId()).hasStock(stockName) && StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) >= 1) {
                                         target.sendMessage(header + "§f해당 주식 §b1§f주를 팔아 §6" + Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0 + "§f원을 받았습니다.");
