@@ -661,8 +661,8 @@ public class GambleCommand implements CommandExecutor {
             return DenyReason.HAND;
         else if (p.isSleeping())
             return DenyReason.SLEEP;
-        /*else if (GameVars.GamePlayers.contains(p.getUniqueId()) || GameVars.WaitPlayers.contains(p.getUniqueId()))
-            return DenyReason.JOIN;*/
+        else if (GameVars.GamePlayers.contains(p.getUniqueId()) || GameVars.WaitPlayers.contains(p.getUniqueId()))
+            return DenyReason.JOIN;
         else if (DataManager.getInstance().containBlackList(p.getUniqueId()))
             return DenyReason.BLACK;
         else
