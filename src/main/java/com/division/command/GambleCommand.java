@@ -541,6 +541,8 @@ public class GambleCommand implements CommandExecutor {
                                             p.sendMessage(header + "§f0이하의 값이 올 수 없습니다.");
                                         else if (StockManager.getInstance().getStockMap().size() == 45)
                                             p.sendMessage(header + "§f주식이 너무 많습니다.");
+                                        else if (arg[2].contains("."))
+                                            p.sendMessage(header + "§f주식이름에는 .이 올 수 없습니다.");
                                         else {
                                             StockManager.getInstance().addStock(arg[2], money, width);
                                             Bukkit.broadcastMessage(header + "§f새로운 주식이 상장되었습니다.");
