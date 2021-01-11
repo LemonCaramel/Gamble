@@ -1,6 +1,7 @@
 package com.division;
 
 import com.division.command.GambleCommand;
+import com.division.command.GambleTabCompleter;
 import com.division.data.StockManager;
 import com.division.file.ConfigManager;
 import com.division.file.GambleLogger;
@@ -16,6 +17,7 @@ public class Gamble extends JavaPlugin {
     public void onEnable() {
         getLogger().info("Gamble Enabled");
         getCommand("도박").setExecutor(new GambleCommand(this));
+        getCommand("도박").setTabCompleter(new GambleTabCompleter());
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
         ConfigManager.getInstance().loadData();

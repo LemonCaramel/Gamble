@@ -239,9 +239,9 @@ public class InventoryClickListener implements Listener {
                                 }
                                 else if (event.getClick() == ClickType.LEFT) {
                                     if (StockManager.getInstance().getUser(target.getUniqueId()).hasStock(stockName) && StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) >= 1) {
-                                        target.sendMessage(header + "§f해당 주식 §b1§f주를 팔아 §6" + Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0 + "§f원을 받았습니다.");
+                                        target.sendMessage(header + "§f해당 주식 §b1§f주를 팔아 §6" + Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 99 / 10.0) / 10.0 + "§f원을 받았습니다.");
                                         StockManager.getInstance().getUser(target.getUniqueId()).sellStock(stockName, 1, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0);
-                                        EconomyAPI.getInstance().giveMoney(target, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0);
+                                        EconomyAPI.getInstance().giveMoney(target, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 99 / 10.0) / 10.0);
                                         stock.refreshGUI();
                                     }
                                     else
@@ -249,8 +249,8 @@ public class InventoryClickListener implements Listener {
                                 }
                                 else if (event.getClick() == ClickType.SHIFT_LEFT) {
                                     if (StockManager.getInstance().getUser(target.getUniqueId()).hasStock(stockName) && StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) >= 1) {
-                                        target.sendMessage(header + "§f해당 주식 §b" + StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) + "§f주를 팔아 §6" + Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) * 10.0) / 10.0  + "§f원을 받았습니다.");
-                                        EconomyAPI.getInstance().giveMoney(target, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) * 10.0) / 10.0);
+                                        target.sendMessage(header + "§f해당 주식 §b" + StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) + "§f주를 팔아 §6" + Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) * 99 / 10.0) / 10.0 + "§f원을 받았습니다.");
+                                        EconomyAPI.getInstance().giveMoney(target, Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName) * 99 / 10.0) / 10.0);
                                         StockManager.getInstance().getUser(target.getUniqueId()).sellStock(stockName, StockManager.getInstance().getUser(target.getUniqueId()).getAmount(stockName), Math.round(StockManager.getInstance().getStock(stockName).getCurrent() * 10.0) / 10.0);
                                         stock.refreshGUI();
                                     }
