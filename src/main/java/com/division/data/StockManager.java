@@ -97,10 +97,10 @@ public class StockManager {
                 StockData data = getStock(stock);
                 int rand = ThreadLocalRandom.current().nextInt(0, data.getWidth() + 1) - data.getWidth() / 2; //-면 감소, +면 증가 (100 -> 48 = -0.2%)
                 double next = Math.round((data.getCurrent() + data.getCurrent() * rand / 1000.0) * 10) / 10.0;
-                if (next <= data.getInitial() * 0.05)
-                    data.setWarning(true);
                 if (next <= data.getInitial() * 0.01)
                     removeStock.add(stock);
+                else
+                    data.setWarning(next <= data.getInitial() * 0.05);
                 data.setPercent(rand / 10.0);
                 data.setCurrent(next);
             }
@@ -111,7 +111,7 @@ public class StockManager {
             setLastRenewal(System.currentTimeMillis());
             Bukkit.getOnlinePlayers().stream().filter(data -> data.getOpenInventory().getTitle().contains("주식")).forEach(data -> {
                 if (GameData.getInstance().isPlaying(data.getUniqueId()) && GameData.getInstance().getData(data.getUniqueId()).getCurrent() instanceof Stock)
-                    ((Stock)GameData.getInstance().getData(data.getUniqueId()).getCurrent()).refreshGUI();
+                    ((Stock) GameData.getInstance().getData(data.getUniqueId()).getCurrent()).refreshGUI();
             });
         }, 0L, refresh * 20L).getTaskId();
     }
