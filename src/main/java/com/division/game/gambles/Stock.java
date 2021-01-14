@@ -65,9 +65,9 @@ public class Stock implements Game {
             }
             else {
                 if (StockManager.getInstance().getStock(stock).isWarning())
-                    stack = InventoryUtil.createItemStack(Material.BOOK, header + "§f" + stock, " ", " §8-  §c현재 보유하고 있지 않는 주식입니다.", " §8-  §f상장가 §7: §b" + manager.getStock(stock).getInitial() + "§f원", " §8-  §f현재가 §7: §6" + manager.getStock(stock).getCurrent() + "§f원", " §8-  §f등락 §7: §f" + getPercent(StockManager.getInstance().getStock(stock).getPercent()), " §8-  §f우클릭시 1주 구매, 쉬프트 우클릭시 10주 구매", " §8-  §f좌클릭시 1주 판매, 쉬프트 좌클릭시 전체 판매", " ");
-                else
                     stack = InventoryUtil.createItemStack(Material.BOOK, header + "§5" + stock, " ", " §8-  §c현재 보유하고 있지 않는 주식입니다.", " §8-  §f상장가 §7: §b" + manager.getStock(stock).getInitial() + "§f원", " §8-  §f현재가 §7: §6" + manager.getStock(stock).getCurrent() + "§f원", " §8-  §f등락 §7: §f" + getPercent(StockManager.getInstance().getStock(stock).getPercent()), " §8-  §f우클릭시 1주 구매, 쉬프트 우클릭시 10주 구매", " §8-  §f좌클릭시 1주 판매, 쉬프트 좌클릭시 전체 판매", " ");
+                else
+                    stack = InventoryUtil.createItemStack(Material.BOOK, header + "§f" + stock, " ", " §8-  §c현재 보유하고 있지 않는 주식입니다.", " §8-  §f상장가 §7: §b" + manager.getStock(stock).getInitial() + "§f원", " §8-  §f현재가 §7: §6" + manager.getStock(stock).getCurrent() + "§f원", " §8-  §f등락 §7: §f" + getPercent(StockManager.getInstance().getStock(stock).getPercent()), " §8-  §f우클릭시 1주 구매, 쉬프트 우클릭시 10주 구매", " §8-  §f좌클릭시 1주 판매, 쉬프트 좌클릭시 전체 판매", " ");
             }
             p.getOpenInventory().setItem(i++, stack);
         }
