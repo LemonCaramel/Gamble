@@ -89,7 +89,7 @@ public class StockManager {
 
     public void startTask() {
         Bukkit.getScheduler().cancelTask(taskID);
-        taskID = Bukkit.getScheduler().runTaskTimer(JavaPlugin.getPlugin(Gamble.class), () -> {
+        taskID = Bukkit.getScheduler().runTaskTimerAsynchronously(JavaPlugin.getPlugin(Gamble.class), () -> {
             //주식 갱신 시작, width는 100이상, 첫째자리 수는 소수점
             Bukkit.broadcastMessage(header + "§f주식이 갱신되었습니다.");
             ArrayList<String> removeStock = new ArrayList<>();
