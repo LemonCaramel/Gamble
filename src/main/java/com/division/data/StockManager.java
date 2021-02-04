@@ -3,6 +3,7 @@ package com.division.data;
 import com.division.Gamble;
 import com.division.game.gambles.Stock;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class StockManager {
         Bukkit.getScheduler().cancelTask(taskID);
         taskID = Bukkit.getScheduler().runTaskTimerAsynchronously(JavaPlugin.getPlugin(Gamble.class), () -> {
             //주식 갱신 시작, width는 100이상, 첫째자리 수는 소수점
-            Bukkit.broadcastMessage(header + "§f주식이 갱신되었습니다.");
+            Bukkit.getOnlinePlayers().forEach(data -> data.sendMessage(header + "§f주식이 갱신되었습니다."));
             ArrayList<String> removeStock = new ArrayList<>();
             for (String stock : stockMap.keySet()) {
                 StockData data = getStock(stock);
