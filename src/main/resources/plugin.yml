@@ -3,5 +3,6 @@ version: 2.6
 author: DR_Division
 main: com.division.Gamble
 commands:
-  도박:
+  gamble:
+    aliases: [ 도박 ]
     description: about Gamble
