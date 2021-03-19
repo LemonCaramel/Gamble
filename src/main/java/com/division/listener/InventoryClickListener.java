@@ -18,8 +18,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import javax.smartcardio.Card;
-
 public class InventoryClickListener implements Listener {
 
     private String header;
