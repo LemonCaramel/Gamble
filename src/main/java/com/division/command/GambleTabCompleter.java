@@ -23,7 +23,7 @@ public class GambleTabCompleter implements TabCompleter {
         ObjectList<String> tabComplete = new ObjectArrayList<>();
         if (args.length == 1) {
             tabComplete = new ObjectArrayList<>(Arrays.asList("슬롯머신", "주사위", "블랙잭",
-                    "룰렛", "동전", "인디언포커", "카드", "포커", "주식"));
+                    "룰렛", "동전", "인디언포커", "카드", "포커", "주식", "정보"));
             if (player.isOp())
                 tabComplete.addAll(Arrays.asList("블랙리스트", "저장", "리로드"));
         } else if (args.length == 2) {

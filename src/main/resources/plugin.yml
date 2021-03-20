@@ -1,6 +1,6 @@
 name: Gamble
-version: 2.6
-author: DR_Division
+version: ${project.version}
+authors: [ DR_Division, LemonCaramel ]
 main: com.division.Gamble
 commands:
   gamble:

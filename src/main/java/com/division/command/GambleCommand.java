@@ -14,17 +14,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import it.unimi.dsi.fastutil.objects.*;
 
 import java.util.UUID;
 
 public class GambleCommand implements CommandExecutor {
 
-    private Gamble Plugin;
-    private String header;
+    private final Gamble plugin;
+    private final String header;
 
     public GambleCommand(Gamble Plugin) {
-        this.Plugin = Plugin;
+        this.plugin = Plugin;
         header = DataManager.getInstance().getHeader();
     }
 
@@ -53,7 +52,7 @@ public class GambleCommand implements CommandExecutor {
             else {
                 if (checkParameter(arg[0])) {
                     if (arg[0].equalsIgnoreCase("슬롯머신")) {
-                        new SlotMachine(p.getUniqueId(), Plugin);
+                        new SlotMachine(p.getUniqueId(), plugin);
                     }
                     else if (arg[0].equalsIgnoreCase("주사위")) {
                         if (arg.length == 1) {
@@ -93,7 +92,7 @@ public class GambleCommand implements CommandExecutor {
                                             }
                                             else {
                                                 GameData.getInstance().stopGame(p.getUniqueId()); //버그 방지를 위한 값 임시 제거
-                                                new Dice(p.getUniqueId(), value, Plugin);
+                                                new Dice(p.getUniqueId(), value, plugin);
                                             }
                                         }
                                         else
@@ -150,7 +149,7 @@ public class GambleCommand implements CommandExecutor {
                                             }
                                             else {
                                                 EconomyAPI.getInstance().steelMoney(p, value);
-                                                new Blackjack(p.getUniqueId(), Plugin, value);
+                                                new Blackjack(p.getUniqueId(), plugin, value);
                                                 GambleLogger.getInstance().addLog(p.getName() + "님이 블랙잭에 " + value + "원 베팅");
                                             }
                                         }
@@ -193,7 +192,7 @@ public class GambleCommand implements CommandExecutor {
                                             }
                                             else {
                                                 EconomyAPI.getInstance().steelMoney(p, value);
-                                                new Roulette(p.getUniqueId(), Plugin, value);
+                                                new Roulette(p.getUniqueId(), plugin, value);
                                                 GambleLogger.getInstance().addLog(p.getName() + " 님이 룰렛에 " + value + "원 베팅");
                                             }
                                         }
@@ -203,7 +202,7 @@ public class GambleCommand implements CommandExecutor {
                         }
                     }
                     else if (arg[0].equalsIgnoreCase("동전")) {
-                        new Coin(p.getUniqueId(), Plugin);
+                        new Coin(p.getUniqueId(), plugin);
                     }
                     else if (arg[0].equalsIgnoreCase("인디언포커")) {
                         if (arg.length == 1)
@@ -256,7 +255,7 @@ public class GambleCommand implements CommandExecutor {
                                             int val = IndianData.getInstance().getMoney(target.getUniqueId()) / 20;
                                             EconomyAPI.getInstance().steelMoney(p, val);
                                             EconomyAPI.getInstance().steelMoney(target, val);
-                                            new Indian(target.getUniqueId(), p.getUniqueId(), Plugin);
+                                            new Indian(target.getUniqueId(), p.getUniqueId(), plugin);
                                             GambleLogger.getInstance().addLog(p.getName() + "님이 " + target.getName() + " 의 인디언포커 요청 수락");
                                         }
                                         break;
@@ -355,7 +354,7 @@ public class GambleCommand implements CommandExecutor {
                                         else {
                                             EconomyAPI.getInstance().steelMoney(p, CardData.getInstance().getMoney(target.getUniqueId()));
                                             EconomyAPI.getInstance().steelMoney(target, CardData.getInstance().getMoney(target.getUniqueId()));
-                                            new CardGamble(target.getUniqueId(), p.getUniqueId(), CardData.getInstance().getMoney(target.getUniqueId()), Plugin);
+                                            new CardGamble(target.getUniqueId(), p.getUniqueId(), CardData.getInstance().getMoney(target.getUniqueId()), plugin);
                                             GambleLogger.getInstance().addLog(p.getName() + "님이 " + target.getName() + "님의 카드도박 요청 수락");
                                         }
                                         break;
@@ -454,7 +453,7 @@ public class GambleCommand implements CommandExecutor {
                                         else {
                                             EconomyAPI.getInstance().steelMoney(p, PokerData.getInstance().getMoney(target.getUniqueId()));
                                             EconomyAPI.getInstance().steelMoney(target, PokerData.getInstance().getMoney(target.getUniqueId()));
-                                            new Poker(target.getUniqueId(), p.getUniqueId(), Plugin, PokerData.getInstance().getMoney(target.getUniqueId()));
+                                            new Poker(target.getUniqueId(), p.getUniqueId(), plugin, PokerData.getInstance().getMoney(target.getUniqueId()));
                                             GambleLogger.getInstance().addLog(p.getName() + "님이 " + target.getName() + "님의 포커 요청 수락");
                                         }
                                         break;
@@ -652,6 +651,11 @@ public class GambleCommand implements CommandExecutor {
                         else
                             p.sendMessage(header + "§c접근권한이 없습니다.");
                     }
+                    else if (arg[0].equalsIgnoreCase("정보")) {
+                        p.sendMessage("§c§l 이름 > §f" + plugin.getDescription().getName());
+                        p.sendMessage("§c§l 제작 > §f" + String.join(",", plugin.getDescription().getAuthors()));
+                        p.sendMessage("§c§l 버전 > §f" + plugin.getDescription().getVersion());
+                    }
                 }
             }
             return true;
@@ -690,7 +694,13 @@ public class GambleCommand implements CommandExecutor {
     }
 
     public boolean checkParameter(String value) {
-        return value.equalsIgnoreCase("슬롯머신") || value.equalsIgnoreCase("주사위") || value.equalsIgnoreCase("블랙잭") || value.equalsIgnoreCase("룰렛") || value.equalsIgnoreCase("인디언포커") || value.equalsIgnoreCase("카드") || value.equalsIgnoreCase("동전") || value.equalsIgnoreCase("포커") || value.equalsIgnoreCase("주식") || value.equalsIgnoreCase("블랙리스트") || value.equalsIgnoreCase("저장") || value.equalsIgnoreCase("리로드");
+        return value.equalsIgnoreCase("슬롯머신") || value.equalsIgnoreCase("주사위")
+                || value.equalsIgnoreCase("블랙잭") || value.equalsIgnoreCase("룰렛")
+                || value.equalsIgnoreCase("인디언포커") || value.equalsIgnoreCase("카드")
+                || value.equalsIgnoreCase("동전") || value.equalsIgnoreCase("포커")
+                || value.equalsIgnoreCase("주식") || value.equalsIgnoreCase("블랙리스트")
+                || value.equalsIgnoreCase("저장") || value.equalsIgnoreCase("리로드")
+                || value.equalsIgnoreCase("정보");
     }
 
     public boolean checkIntParameter(String value) {
