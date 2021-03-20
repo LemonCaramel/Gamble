@@ -653,7 +653,7 @@ public class GambleCommand implements CommandExecutor {
                     }
                     else if (arg[0].equalsIgnoreCase("정보")) {
                         p.sendMessage("§c§l 이름 > §f" + plugin.getDescription().getName());
-                        p.sendMessage("§c§l 제작 > §f" + String.join(",", plugin.getDescription().getAuthors()));
+                        p.sendMessage("§c§l 제작 > §f" + String.join(", ", plugin.getDescription().getAuthors()));
                         p.sendMessage("§c§l 버전 > §f" + plugin.getDescription().getVersion());
                     }
                 }
