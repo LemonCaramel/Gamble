@@ -26,7 +26,7 @@ public class GambleTabCompleter implements TabCompleter {
                     "룰렛", "동전", "인디언포커", "카드", "포커", "주식"));
             if (player.isOp())
                 tabComplete.addAll(Arrays.asList("블랙리스트", "저장", "리로드"));
-        } else {
+        } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("주사위") || args[0].equalsIgnoreCase("블랙잭"))
                 tabComplete.addAll(Arrays.asList("룰", "베팅"));
             else if (args[0].equalsIgnoreCase("룰렛"))
