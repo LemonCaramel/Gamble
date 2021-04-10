@@ -41,6 +41,10 @@ public class UserStock {
         }
     }
 
+    public void clear() {
+        userMap.clear();
+    }
+
     private static class UserStockData{
 
         private int amount; //수량
