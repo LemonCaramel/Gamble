@@ -6,7 +6,7 @@
 
     <groupId>com.division</groupId>
     <artifactId>Gamble</artifactId>
-    <version>2.6.8-STABLE</version>
+    <version>2.6.9-STABLE</version>
     <packaging>jar</packaging>
 
     <name>Gamble</name>
