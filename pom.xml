@@ -94,13 +94,22 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- caramelCounterZombie API -->
+        <!-- caramelCounterZombie API
         <dependency>
             <groupId>moe.caramel</groupId>
             <artifactId>caramelCounterZombieLegacy</artifactId>
             <scope>system</scope>
             <version>1.5</version>
             <systemPath>${project.lib.path}/caramelCounterZombieLegacy.jar</systemPath>
+        </dependency-->
+
+        <!-- TDM API -->
+        <dependency>
+            <groupId>me.nt_supernova.testpl.testpl</groupId>
+            <artifactId>Testpl</artifactId>
+            <scope>system</scope>
+            <version>1.5</version>
+            <systemPath>${project.lib.path}/Firstpl.jar</systemPath>
         </dependency>
     </dependencies>
 
