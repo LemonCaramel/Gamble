@@ -52,7 +52,7 @@ public class Blackjack implements Game {
         if (p != null) {
             prepareDeck();
             ItemStack dealerDeck, userDeck;
-            ItemStack edge = InventoryUtil.createItemStack(Material.IRON_FENCE, " ");
+            ItemStack edge = InventoryUtil.createItemStack(Material.IRON_BARS, " ");
             Inventory black = Bukkit.createInventory(null, 54, header + "§0블랙잭");
             for (int i = 0; i < 9; i++) {
                 black.setItem(i, edge);
@@ -71,14 +71,14 @@ public class Blackjack implements Game {
             else
                 userDeck = InventoryUtil.createItemStack(Material.PAPER, header + "§a당신의 패", " ", " §8-  §f" + user.get(0) + ", " + user.get(1), " §8-  §b현재 당신의 수치 §7: §a" + getValueA1(user) + "§f점 §7/ §a" + getValueA11(user) + "§f점");
             ItemStack hit = InventoryUtil.createItemStack(Material.STONE_BUTTON, header + "§bHit (받기) / Double Down (x2)", " ", " §8-  §f클릭시 카드를 한장 더 받습니다.", " §8-  §f우클릭시 베팅액의 100%를 추가 베팅하며 카드를 한장만 받고 Stay처리 됩니다.", " ");
-            ItemStack stay = InventoryUtil.createItemStack(Material.WOOD_BUTTON, header + "§cStay (멈추기)", " ", " §8-  §f클릭시 턴을 마칩니다.", " ");
+            ItemStack stay = InventoryUtil.createItemStack(Material.OAK_BUTTON, header + "§cStay (멈추기)", " ", " §8-  §f클릭시 턴을 마칩니다.", " ");
             black.setItem(13, dealerDeck);
             black.setItem(29, stay);
             black.setItem(31, userDeck);
             black.setItem(33, hit);
             p.openInventory(black);
             if (checkInsurance()) {
-                ItemStack insurance = InventoryUtil.createItemStack(Material.REDSTONE_TORCH_ON, header + "§4Insurance (보험)", " ", " §8-  §f클릭시 베팅액의 50%를 보험으로 듭니다.", " §8-  §f딜러 블랙잭이 아닌 경우 보험금은 제거됩니다.", " ");
+                ItemStack insurance = InventoryUtil.createItemStack(Material.REDSTONE_TORCH, header + "§4Insurance (보험)", " ", " §8-  §f클릭시 베팅액의 50%를 보험으로 듭니다.", " §8-  §f딜러 블랙잭이 아닌 경우 보험금은 제거됩니다.", " ");
                 p.getOpenInventory().setItem(40, insurance);
                 if (getValueA1(user) == 21 || getValueA11(user) == 21)
                     disableGame();
@@ -172,19 +172,19 @@ public class Blackjack implements Game {
                         p.sendTitle(header + "§4딜러 블랙잭..", "§c패배 하셨습니다..ㅜㅜ", 5, 50, 5);
                         GameData.getInstance().stopGame(target);
                         p.closeInventory();
-                        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 2.0f, 1.0f);
+                        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 2.0f, 1.0f);
                         break;
                     case BURST:
                         p.sendTitle(header + "§c버스트..", "§c패배 하셨습니다..ㅜㅜ", 5, 50, 5);
                         GameData.getInstance().stopGame(target);
                         p.closeInventory();
-                        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 2.0f, 1.0f);
+                        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 2.0f, 1.0f);
                         break;
                     case LOW:
                         p.sendTitle(header + "§c패배하셨습니다..", "§c딜러보다 수치가 낮습니다.ㅜ", 5, 50, 5);
                         GameData.getInstance().stopGame(target);
                         p.closeInventory();
-                        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 2.0f, 1.0f);
+                        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 2.0f, 1.0f);
                         break;
                 }
             }
@@ -219,7 +219,7 @@ public class Blackjack implements Game {
         else {
             GameData.getInstance().getData(target).setBetMoney(GameData.getInstance().getData(target).getBetMoney() / 2);
             ItemStack fail = InventoryUtil.createItemStack(Material.NETHER_STAR, header + "§7블랙잭이 아닙니다..ㅜ", " ", " §8-  §cInsurance로 인해 베팅액이 50% 감소 하였습니다.", " ");
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 2.0f, 1.0f);
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 2.0f, 1.0f);
             if (getValueA1(user) == 21 || getValueA11(user) == 21)
                 winGame(Reason.BLACKJACK);
             return fail;
@@ -245,7 +245,7 @@ public class Blackjack implements Game {
     public void hit() {
         Player p = Bukkit.getPlayer(target);
         ItemStack userDeck;
-        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_HAT, 2.0f, 1.0f);
+        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 2.0f, 1.0f);
         int rand = ThreadLocalRandom.current().nextInt(0, deck.size());
         user.add(deck.get(rand));
         deck.remove(rand);
@@ -267,7 +267,7 @@ public class Blackjack implements Game {
             EconomyAPI.getInstance().steelMoney(p, GameData.getInstance().getData(target).getBetMoney());
             GameData.getInstance().getData(target).setBetMoney(GameData.getInstance().getData(target).getBetMoney() * 2);
             GambleLogger.getInstance().addLog(p.getName() + "님이 Double Down을 하여 배팅액을 늘렸습니다.");
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_HAT, 2.0f, 1.0f);
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 2.0f, 1.0f);
             int rand = ThreadLocalRandom.current().nextInt(0, deck.size());
             user.add(deck.get(rand));
             deck.remove(rand);

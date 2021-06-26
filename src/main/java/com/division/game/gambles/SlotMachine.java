@@ -41,13 +41,13 @@ public class SlotMachine implements Game {
     private void slotItemSet() {
         slotItem[0] = InventoryUtil.createItemStack(Material.NETHER_STAR, header + "§f네더의 별");
         slotItem[1] = InventoryUtil.createItemStack(Material.APPLE, header + "§c사과");
-        slotItem[2] = InventoryUtil.createItemStack(Material.PORK, header + "§e돼지고기");
+        slotItem[2] = InventoryUtil.createItemStack(Material.PORKCHOP, header + "§e돼지고기");
         slotItem[3] = InventoryUtil.createItemStack(Material.GOLDEN_APPLE, header + "§6황금사과");
         slotItem[4] = InventoryUtil.createItemStack(Material.CAKE, header + "§f케이크");
         slotItem[5] = InventoryUtil.createItemStack(Material.COOKIE, header + "§6쿠키");
-        slotItem[6] = InventoryUtil.createItemStack(Material.MELON, header + "§a멜론");
+        slotItem[6] = InventoryUtil.createItemStack(Material.MELON_SLICE, header + "§a멜론");
         slotItem[7] = InventoryUtil.createItemStack(Material.BEETROOT, header + "§4사탕무");
-        slotItem[8] = InventoryUtil.createItemStack(Material.POTATO_ITEM, header + "§6감자");
+        slotItem[8] = InventoryUtil.createItemStack(Material.POTATO, header + "§6감자");
         slotItem[9] = InventoryUtil.createItemStack(Material.EGG, header + "§e달걀");
 
     }
@@ -98,8 +98,8 @@ public class SlotMachine implements Game {
         if (p != null) {
             String count = String.format("%.2f", DataManager.getInstance().getSlotCount());
             Inventory slot = InventoryUtil.createInventory(header + "§0슬롯머신", 27);
-            ItemStack wool = InventoryUtil.createItemStack(Material.WOOL, header + "§b현재 누적금액", (short) 15, " ", " §8-  §f현재 §c슬롯머신§f에 누적된 §6금액§f은 §b" + count + "§f원 입니다.", " ");
-            ItemStack edge = InventoryUtil.createItemStack(Material.IRON_FENCE, " ");
+            ItemStack wool = InventoryUtil.createItemStack(Material.RED_WOOL, header + "§b현재 누적금액", (short) 0, " ", " §8-  §f현재 §c슬롯머신§f에 누적된 §6금액§f은 §b" + count + "§f원 입니다.", " ");
+            ItemStack edge = InventoryUtil.createItemStack(Material.IRON_BARS, " ");
             ItemStack lever = InventoryUtil.createItemStack(Material.LEVER, header + "§b슬롯머신 레버", " ", " §8-  §f클릭시 슬롯머신을 돌립니다. §7( §f1회당 §6" + DataManager.getInstance().getSlotMin() + "§f원 §7)", " ");
             for (int i = 0; i < 3; ++i) {
                 slot.setItem(i, edge);
@@ -139,14 +139,14 @@ public class SlotMachine implements Game {
             second = getValue(p.getOpenInventory().getItem(13));
             third = getValue(p.getOpenInventory().getItem(14));
             ThreadLocalRandom random = ThreadLocalRandom.current();
-            final int firstEnd = random.nextInt(40, 71);  //0~30 + 40 -> 40 ~ 70
-            final int secondEnd = random.nextInt(70, 101); //0~30 + 70 -> 70 ~ 100
-            final int lastEnd = random.nextInt(100, 131); //0~30 + 100 -> 100 ~ 130
+            final int firstEnd = random.nextInt(20, 35);  //0~30 + 40 -> 40 ~ 70
+            final int secondEnd = random.nextInt(35, 50); //0~30 + 70 -> 70 ~ 100
+            final int lastEnd = random.nextInt(50, 65); //0~30 + 100 -> 100 ~ 130
             GameData.getInstance().getData(target).setBetMoney(DataManager.getInstance().getSlotMin());
             EconomyAPI.getInstance().steelMoney(p, DataManager.getInstance().getSlotMin());
             DataManager.getInstance().setSlotCount(DataManager.getInstance().getSlotMin() + DataManager.getInstance().getSlotCount());
             String value = String.format("%.2f", DataManager.getInstance().getSlotCount());
-            ItemStack wool = InventoryUtil.createItemStack(Material.WOOL, header + "§b현재 누적금액", (short) 15, " ", " §8-  §f현재 §c슬롯머신§f에 누적된 §6금액§f은 §b" + value + "§f원 입니다.", " ");
+            ItemStack wool = InventoryUtil.createItemStack(Material.BLACK_WOOL, header + "§b현재 누적금액", (short) 0, " ", " §8-  §f현재 §c슬롯머신§f에 누적된 §6금액§f은 §b" + value + "§f원 입니다.", " ");
             for (int i = 0; i < 3; i++) {
                 p.getOpenInventory().setItem(i + 3, wool);
                 p.getOpenInventory().setItem(i + 21, wool);
@@ -187,7 +187,7 @@ public class SlotMachine implements Game {
                     p.getOpenInventory().setItem(14, slotItem[third]);
                     count++;
                 }
-            }, 0L, 1L).getTaskId();
+            }, 0L, 3L).getTaskId();
 
         }
     }

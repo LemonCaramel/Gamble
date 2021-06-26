@@ -39,7 +39,7 @@ public class InventoryUtil {
 
     public static ItemStack createSkullStack(String name, Player target, String... lore){
         OfflinePlayer p = Bukkit.getOfflinePlayer(target.getUniqueId());
-        ItemStack stack = new ItemStack(Material.SKULL_ITEM,1, (short)3);
+        ItemStack stack = new ItemStack(Material.PLAYER_HEAD,1);
         SkullMeta meta = (SkullMeta) stack.getItemMeta();
         meta.setDisplayName(name);
         meta.setLore(createLore(lore));

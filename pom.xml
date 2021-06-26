@@ -6,7 +6,7 @@
 
     <groupId>com.division</groupId>
     <artifactId>Gamble</artifactId>
-    <version>2.6.10-STABLE</version>
+    <version>2.7.0</version>
     <packaging>jar</packaging>
 
     <name>Gamble</name>
@@ -56,12 +56,6 @@
     </build>
 
     <repositories>
-        <!-- Paper API -->
-        <repository>
-            <id>papermc</id>
-            <url>https://papermc.io/repo/repository/maven-public/</url>
-        </repository>
-
         <!-- JitPack -->
         <repository>
             <id>jitpack.io</id>
@@ -70,11 +64,11 @@
     </repositories>
 
     <dependencies>
-        <!-- Paper API -->
+        <!-- Daydream API -->
         <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <groupId>moe.caramel</groupId>
+            <artifactId>daydream-api</artifactId>
+            <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -94,22 +88,13 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- caramelCounterZombie API
+        <!-- caramelCounterZombie API -->
         <dependency>
             <groupId>moe.caramel</groupId>
             <artifactId>caramelCounterZombieLegacy</artifactId>
             <scope>system</scope>
-            <version>1.5</version>
+            <version>4.16.X</version>
             <systemPath>${project.lib.path}/caramelCounterZombieLegacy.jar</systemPath>
-        </dependency-->
-
-        <!-- TDM API -->
-        <dependency>
-            <groupId>me.nt_supernova.testpl.testpl</groupId>
-            <artifactId>Testpl</artifactId>
-            <scope>system</scope>
-            <version>1.5</version>
-            <systemPath>${project.lib.path}/Firstpl.jar</systemPath>
         </dependency>
     </dependencies>
 

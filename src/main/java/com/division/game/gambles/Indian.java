@@ -50,7 +50,7 @@ public class Indian implements Game {
         Player t = Bukkit.getPlayer(target);
         Inventory inv = InventoryUtil.createInventory(header + "§0인디언포커", 54);
         Inventory invClone = InventoryUtil.createInventory(header + "§0인디언포커", 54);
-        ItemStack edge = InventoryUtil.createItemStack(Material.IRON_FENCE, " ");
+        ItemStack edge = InventoryUtil.createItemStack(Material.IRON_BARS, " ");
         ItemStack deck = InventoryUtil.createItemStack(Material.CHEST, header + "§b패 확인", " ", " §8-  §f클릭해서 패를 확인하세요.", " ");
         for (int i = 0; i < 9; i++) {
             inv.setItem(i, edge);
@@ -89,10 +89,10 @@ public class Indian implements Game {
         Player t = Bukkit.getPlayer(target);
         if (turn) {
             lampON = InventoryUtil.createItemStack(Material.REDSTONE_BLOCK, header + "§b당신의 차례 입니다.", " ", " §8-  §f베팅 혹은 다이를 선택해 주세요.", " §8-  §f상대방의 현재 베팅액 §7: §6" + targetBet + "§f원", " ");
-            betON = InventoryUtil.createItemStack(Material.WOOD_BUTTON, header + "§c베팅(Bet)", " ", " §8-  §c현재 당신의 베팅액 §7: §6" + playerBet + "§f원", " §8-  §b현재 상대의 베팅액 §7: §6" + targetBet + "§f원", " §8-  §c좌클릭시 §6" + MAX_BET / 20 + "§f원을 베팅합니다.", " §8-  §a우클릭시 베팅을 종료합니다. 단 상대방의 베팅액보다 크거나 같아야 합니다.", " ");
+            betON = InventoryUtil.createItemStack(Material.OAK_BUTTON, header + "§c베팅(Bet)", " ", " §8-  §c현재 당신의 베팅액 §7: §6" + playerBet + "§f원", " §8-  §b현재 상대의 베팅액 §7: §6" + targetBet + "§f원", " §8-  §c좌클릭시 §6" + MAX_BET / 20 + "§f원을 베팅합니다.", " §8-  §a우클릭시 베팅을 종료합니다. 단 상대방의 베팅액보다 크거나 같아야 합니다.", " ");
             dieON = InventoryUtil.createItemStack(Material.STONE_BUTTON, header + "§b다이(Die)", " ", " §8-  §f클릭시 게임을 포기합니다.", " ");
-            lampOFF = InventoryUtil.createItemStack(Material.REDSTONE_LAMP_OFF, header + "§c상대방의 차례 입니다.", " ", " §8-  §f상대방의 현재 베팅액 §7: §6" + playerBet + "§f원", " ");
-            betOFF = InventoryUtil.createItemStack(Material.WOOD_BUTTON, header + "§c베팅(Bet)", " ", " §8-  §c현재 당신의 베팅액 §7: §6" + targetBet + "§f원", " §8-  §b현재 상대의 베팅액 §7: §6" + playerBet + "§f원", " ");
+            lampOFF = InventoryUtil.createItemStack(Material.REDSTONE_LAMP, header + "§c상대방의 차례 입니다.", " ", " §8-  §f상대방의 현재 베팅액 §7: §6" + playerBet + "§f원", " ");
+            betOFF = InventoryUtil.createItemStack(Material.OAK_BUTTON, header + "§c베팅(Bet)", " ", " §8-  §c현재 당신의 베팅액 §7: §6" + targetBet + "§f원", " §8-  §b현재 상대의 베팅액 §7: §6" + playerBet + "§f원", " ");
             dieOFF = InventoryUtil.createItemStack(Material.STONE_BUTTON, header + "§b다이(Die)", " ", " §8-  §f클릭시 게임을 포기합니다. (현재 사용불가)", " ");
             p.getOpenInventory().setItem(13, lampON);
             p.getOpenInventory().setItem(29, betON);
@@ -103,10 +103,10 @@ public class Indian implements Game {
         }
         else {
             lampON = InventoryUtil.createItemStack(Material.REDSTONE_BLOCK, header + "§b당신의 차례 입니다.", " ", " §8-  §f베팅 혹은 다이를 선택해 주세요.", " §8-  §f상대방의 현재 베팅액 §7: §6" + playerBet + "§f원", " ");
-            betON = InventoryUtil.createItemStack(Material.WOOD_BUTTON, header + "§c베팅(Bet)", " ", " §8-  §c현재 당신의 베팅액 §7: §6" + targetBet + "§f원", " §8-  §b현재 상대의 베팅액 §7: §6" + playerBet + "§f원", " §8-  §c좌클릭시 §6" + MAX_BET / 20 + "§f원을 베팅합니다.", " §8-  §a우클릭시 베팅을 종료합니다. 단 상대방의 베팅액보다 크거나 같아야 합니다.", " ");
+            betON = InventoryUtil.createItemStack(Material.OAK_BUTTON, header + "§c베팅(Bet)", " ", " §8-  §c현재 당신의 베팅액 §7: §6" + targetBet + "§f원", " §8-  §b현재 상대의 베팅액 §7: §6" + playerBet + "§f원", " §8-  §c좌클릭시 §6" + MAX_BET / 20 + "§f원을 베팅합니다.", " §8-  §a우클릭시 베팅을 종료합니다. 단 상대방의 베팅액보다 크거나 같아야 합니다.", " ");
             dieON = InventoryUtil.createItemStack(Material.STONE_BUTTON, header + "§b다이(Die)", " ", " §8-  §f클릭시 게임을 포기합니다.", " ");
-            lampOFF = InventoryUtil.createItemStack(Material.REDSTONE_LAMP_OFF, header + "§c상대방의 차례 입니다.", " ", " §8-  §f상대방의 현재 베팅액 §7: §6" + targetBet + "§f원", " ");
-            betOFF = InventoryUtil.createItemStack(Material.WOOD_BUTTON, header + "§c베팅(Bet)", " ", " §8-  §c현재 당신의 베팅액 §7: §6" + playerBet + "§f원", " §8-  §b현재 상대의 베팅액 §7: §6" + targetBet + "§f원", " ");
+            lampOFF = InventoryUtil.createItemStack(Material.REDSTONE_LAMP, header + "§c상대방의 차례 입니다.", " ", " §8-  §f상대방의 현재 베팅액 §7: §6" + targetBet + "§f원", " ");
+            betOFF = InventoryUtil.createItemStack(Material.OAK_BUTTON, header + "§c베팅(Bet)", " ", " §8-  §c현재 당신의 베팅액 §7: §6" + playerBet + "§f원", " §8-  §b현재 상대의 베팅액 §7: §6" + targetBet + "§f원", " ");
             dieOFF = InventoryUtil.createItemStack(Material.STONE_BUTTON, header + "§b다이(Die)", " ", " §8-  §f클릭시 게임을 포기합니다. (현재 사용불가)", " ");
             t.getOpenInventory().setItem(13, lampON);
             t.getOpenInventory().setItem(29, betON);
@@ -163,7 +163,7 @@ public class Indian implements Game {
                 //player
                 if (playerBet == MAX_BET) {
                     p.sendMessage(header + "§c더이상 베팅 할 수 없습니다. 베팅을 종료해주세요");
-                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BELL, 1.0f, 1.0f);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1.0f, 1.0f);
                 }
                 else if (playerBet + MAX_BET / 20 >= MAX_BET) {
                     EconomyAPI.getInstance().steelMoney(p, MAX_BET - playerBet);
@@ -183,7 +183,7 @@ public class Indian implements Game {
                 //target
                 if (targetBet == MAX_BET) {
                     p.sendMessage(header + "§c더이상 베팅 할 수 없습니다. 베팅을 종료해주세요");
-                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BELL, 1.0f, 1.0f);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1.0f, 1.0f);
                 }
                 else if (targetBet + MAX_BET / 20 >= MAX_BET) {
                     EconomyAPI.getInstance().steelMoney(p, MAX_BET - targetBet);
@@ -211,7 +211,7 @@ public class Indian implements Game {
                 Player t = Bukkit.getPlayer(target);
                 int val = playerBet + targetBet;
                 p.sendTitle(header, "§f게임을 포기하셨습니다.", 5, 50, 5);
-                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BELL, 3.0f, 1.0f);
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 3.0f, 1.0f);
                 t.sendTitle(header, "§f상대방이 게임을 포기하여 승리하셨습니다!", 5, 50, 5);
                 t.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 3.0f, 1.0f);
                 EconomyAPI.getInstance().giveMoney(t, val);
@@ -226,7 +226,7 @@ public class Indian implements Game {
                 Player t = Bukkit.getPlayer(player);
                 int val = playerBet + targetBet;
                 p.sendTitle(header, "§f게임을 포기하셨습니다.", 5, 50, 5);
-                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BELL, 3.0f, 1.0f);
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 3.0f, 1.0f);
                 t.sendTitle(header, "§f상대방이 게임을 포기하여 승리하셨습니다!", 5, 50, 5);
                 t.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 3.0f, 1.0f);
                 EconomyAPI.getInstance().giveMoney(t, val);
@@ -265,7 +265,7 @@ public class Indian implements Game {
                     p.sendTitle(header, "§f승리! 총 베팅한 금액을 받습니다!", 5, 50, 5);
                     t.sendTitle(header, "§f패배 하였습니다 ㅠㅠㅠㅠ", 5, 50, 5);
                     p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 3.0f, 1.0f);
-                    t.playSound(t.getLocation(), Sound.BLOCK_NOTE_BELL, 3.0f, 1.0f);
+                    t.playSound(t.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 3.0f, 1.0f);
                     EconomyAPI.getInstance().giveMoney(p, playerBet + targetBet);
                     GambleLogger.getInstance().addLog(p.getName() + "님이 인디언포커에서 승리하여 " + (playerBet + targetBet) + "원 흭득");
                 }
@@ -281,7 +281,7 @@ public class Indian implements Game {
                 else {
                     p.sendTitle(header, "§f패배 하였습니다 ㅠㅠㅠㅠ", 5, 50, 5);
                     t.sendTitle(header, "§f승리! 총 베팅한 금액을 받습니다!", 5, 50, 5);
-                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BELL, 3.0f, 1.0f);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 3.0f, 1.0f);
                     t.playSound(t.getLocation(), Sound.ENTITY_CHICKEN_EGG, 3.0f, 1.0f);
                     EconomyAPI.getInstance().giveMoney(t, playerBet + targetBet);
                     GambleLogger.getInstance().addLog(t.getName() + "님이 인디언 포커에서 승리하여 " + (playerBet + targetBet) + "원 흭득");
@@ -289,8 +289,10 @@ public class Indian implements Game {
             }
             GameData.getInstance().stopGame(player);
             GameData.getInstance().stopGame(target);
-            p.closeInventory();
-            t.closeInventory();
+            Bukkit.getScheduler().runTask(Plugin, () -> {
+                p.closeInventory();
+                t.closeInventory();
+            });
             IndianData.getInstance().remove(player);
         }, 40L);
     }

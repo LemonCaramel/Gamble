@@ -42,7 +42,7 @@ public class Roulette implements Game {
     public void setGUI() {
         Player p = Bukkit.getPlayer(target);
         Inventory inv = InventoryUtil.createInventory(header + "§0룰렛", 54);
-        ItemStack edge = InventoryUtil.createItemStack(Material.IRON_FENCE, " ");
+        ItemStack edge = InventoryUtil.createItemStack(Material.IRON_BARS, " ");
         ItemStack btn = InventoryUtil.createItemStack(Material.STONE_BUTTON, header + "§b룰렛 돌리기", " ", " §8-  §f클릭시 룰렛을 돌립니다.", " ");
         ItemStack[] roll = new ItemStack[6];
         for (int i = 0; i < 6; i++) {
@@ -56,7 +56,7 @@ public class Roulette implements Game {
                 mul = Math.round((Math.random() * 0.5 + 0.1) * 10) / 10.0;
             else
                 mul = Math.round((Math.random() * 1.6 + 1.5) * 10) / 10.0;
-            roll[i] = InventoryUtil.createItemStack(Material.WOOL, header + "§6" + (i + 1) + "§f번째 칸", (short)15," ", " §8-  §f배율 §7: §c" + mul + "§f배", " ");
+            roll[i] = InventoryUtil.createItemStack(Material.BLACK_WOOL, header + "§6" + (i + 1) + "§f번째 칸", (short) 0," ", " §8-  §f배율 §7: §c" + mul + "§f배", " ");
         }
         for (int i = 0; i < 9; i++) {
             inv.setItem(i + 45, edge);
@@ -87,7 +87,7 @@ public class Roulette implements Game {
             else {
                 setFocus(p.getOpenInventory().getItem(SLOT[focus]));
                 returnFocus(p.getOpenInventory().getItem(SLOT[previous(focus)]));
-                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_HAT, 3.0f, 3.0f);
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 3.0f, 3.0f);
                 focus = flow(focus);
                 count++;
             }
@@ -135,10 +135,10 @@ public class Roulette implements Game {
     }
 
     public void setFocus(ItemStack item) {
-        item.setDurability((short) 14);
+        item.setType(Material.RED_WOOL);
     }
 
     public void returnFocus(ItemStack item) {
-        item.setDurability((short) 15);
+        item.setType(Material.BLACK_WOOL);
     }
 }

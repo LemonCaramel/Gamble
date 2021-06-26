@@ -39,10 +39,10 @@ public class Coin implements Game {
     public void setGUI() {
         Player p = Bukkit.getPlayer(target);
         Inventory coin = InventoryUtil.createInventory(header + "§0동전", 27);
-        ItemStack edge = InventoryUtil.createItemStack(Material.IRON_FENCE, " ");
+        ItemStack edge = InventoryUtil.createItemStack(Material.IRON_BARS, " ");
         ItemStack desc = InventoryUtil.createItemStack(Material.PAPER, header + "§6설명", " ", " §8-  §f동전의 앞면과 뒷면을 예측하는 도박입니다.", " §8-  §f1회당 §6" + DataManager.getInstance().getCoinMin() + "§f원이 소모되며, 앞/뒷면을 선택할시 차감됩니다", " §8-  §f앞면 혹은 뒷면을 선택할 시 결과가 공개되며, 승리시 §6" + DataManager.getInstance().getCoinMin() * 1.5 + "§f원을 흭득합니다.", " ");
-        ItemStack front = InventoryUtil.createItemStack(Material.RECORD_3, header + "§c앞면", " ", " §8-  §f클릭시 앞면을 예측합니다.", " ");
-        ItemStack back = InventoryUtil.createItemStack(Material.RECORD_3, header + "§b뒷면", " ", " §8-  §f클릭시 뒷면을 예측합니다.", " ");
+        ItemStack front = InventoryUtil.createItemStack(Material.MUSIC_DISC_MALL, header + "§c앞면", " ", " §8-  §f클릭시 앞면을 예측합니다.", " ");
+        ItemStack back = InventoryUtil.createItemStack(Material.MUSIC_DISC_MALL, header + "§b뒷면", " ", " §8-  §f클릭시 뒷면을 예측합니다.", " ");
         for (int i = 0; i < 9; i++) {
             coin.setItem(i, edge);
             coin.setItem(i + 18, edge);

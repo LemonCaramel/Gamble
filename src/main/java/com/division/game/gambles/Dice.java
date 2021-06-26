@@ -68,7 +68,7 @@ public class Dice implements Game {
             int value = GameData.getInstance().getData(target).getBetMoney() + (int) ((Math.random() + 0.5) * GameData.getInstance().getData(target).getBetMoney()); //0.5~1.5
             InventoryUtil.clearGUI(p);
             this.role = role;
-            ItemStack edge = InventoryUtil.createItemStack(Material.IRON_FENCE, " ");
+            ItemStack edge = InventoryUtil.createItemStack(Material.IRON_BARS, " ");
             for (int i = 0; i < 9; i++) {
                 p.getOpenInventory().setItem(i, edge);
                 p.getOpenInventory().setItem(i + 45, edge);

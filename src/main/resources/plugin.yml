@@ -2,6 +2,7 @@ name: Gamble
 version: ${project.version}
 authors: [ DR_Division, LemonCaramel ]
 main: com.division.Gamble
+api-version: 1.15
 commands:
   gamble:
     aliases: [ 도박 ]

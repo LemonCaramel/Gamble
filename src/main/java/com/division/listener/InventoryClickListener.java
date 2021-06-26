@@ -29,7 +29,7 @@ public class InventoryClickListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if (event.getRawSlot() != -999) {
-            String title = event.getInventory().getTitle();
+            String title = event.getView().getTitle();
             Player target = (Player) event.getWhoClicked();
             if (title.contains("슬롯머신") || title.contains("주사위") || title.contains("블랙잭") || title.contains("룰렛") || title.contains("동전") || title.contains("인디언포커") || title.contains("카드 도박") || title.contains("포커") || title.contains("주식")) {
                 if (!GameData.getInstance().isPlaying(target.getUniqueId())) {
@@ -87,7 +87,7 @@ public class InventoryClickListener implements Listener {
                             Material type = event.getCurrentItem().getType();
                             if (type == Material.STONE_BUTTON) {
                                 //insurance
-                                if (target.getOpenInventory().getItem(40).getType() == Material.REDSTONE_TORCH_ON)
+                                if (target.getOpenInventory().getItem(40).getType() == Material.REDSTONE_TORCH)
                                     target.sendMessage(header + ChatColor.RED + "Insurance(보험) 여부를 선택해주세요. (종이 클릭시 거부)");
                                 else {
                                     //일반처리
@@ -97,21 +97,21 @@ public class InventoryClickListener implements Listener {
                                         blackjack.hit();
                                 }
                             }
-                            else if (type == Material.WOOD_BUTTON) {
+                            else if (type == Material.OAK_BUTTON) {
                                 //insurance
-                                if (target.getOpenInventory().getItem(40).getType() == Material.REDSTONE_TORCH_ON)
+                                if (target.getOpenInventory().getItem(40).getType() == Material.REDSTONE_TORCH)
                                     target.sendMessage(header + ChatColor.RED + "Insurance(보험) 여부를 선택해주세요. (종이 클릭시 거부)");
                                 else
                                     //일반처리
                                     blackjack.check();
                             }
-                            else if (type == Material.REDSTONE_TORCH_ON) {
+                            else if (type == Material.REDSTONE_TORCH) {
                                 //insurance
                                 event.getInventory().setItem(40, blackjack.insurance());
                             }
                             else if (type == Material.PAPER) {
                                 //insurance 거부시
-                                if (target.getOpenInventory().getItem(40).getType() == Material.REDSTONE_TORCH_ON)
+                                if (target.getOpenInventory().getItem(40).getType() == Material.REDSTONE_TORCH)
                                     blackjack.insuranceDeny();
                             }
                         }
@@ -129,7 +129,7 @@ public class InventoryClickListener implements Listener {
                     event.setCancelled(true);
                     if (event.getCurrentItem() != null) {
                         Game current = GameData.getInstance().getData(target.getUniqueId()).getCurrent();
-                        if (current instanceof Coin && event.getCurrentItem().getType() == Material.RECORD_3) {
+                        if (current instanceof Coin && event.getCurrentItem().getType() == Material.MUSIC_DISC_MALL) {
                             Coin coin = (Coin) current;
                             if (event.getRawSlot() == 11)
                                 coin.check(Coin.Face.FRONT);
@@ -150,7 +150,7 @@ public class InventoryClickListener implements Listener {
                                 if (indian.checkTurn(target.getUniqueId())) {
                                     if (target.getOpenInventory().getItem(31).getType() == Material.CHEST)
                                         target.sendMessage(header + "§f상대의 패를 확인해주세요..");
-                                    else if (event.getCurrentItem().getType() == Material.WOOD_BUTTON) {
+                                    else if (event.getCurrentItem().getType() == Material.OAK_BUTTON) {
                                         if (event.getClick() == ClickType.RIGHT)
                                             indian.giveTurn(target.getUniqueId());
                                         else
@@ -174,8 +174,8 @@ public class InventoryClickListener implements Listener {
                             CardGamble card = (CardGamble) current;
                             Player other = Bukkit.getPlayer(CardData.getInstance().getTarget(target.getUniqueId()));
                             if (event.getCurrentItem().getType() == Material.NOTE_BLOCK) {
-                                other.playSound(other.getLocation(), Sound.BLOCK_NOTE_BELL, 0.7f, 1.0f);
-                                target.playSound(target.getLocation(), Sound.BLOCK_NOTE_BELL, 0.7f, 1.0f);
+                                other.playSound(other.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 0.7f, 1.0f);
+                                target.playSound(target.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 0.7f, 1.0f);
                             }
                             else if (event.getCurrentItem().getType() == Material.BOOK) {
                                 if (event.getRawSlot() == 38)

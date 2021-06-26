@@ -21,7 +21,7 @@ public class Gamble extends JavaPlugin {
         getCommand("gamble").setTabCompleter(new GambleTabCompleter());
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
-        // Bukkit.getPluginManager().registerEvents(new ZombieEventListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ZombieEventListener(), this);
         ConfigManager.getInstance().loadData();
         GambleLogger.getInstance().logging();
         StockFileManager.getInstance().load();

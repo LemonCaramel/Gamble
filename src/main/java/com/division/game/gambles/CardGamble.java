@@ -52,8 +52,8 @@ public class CardGamble implements Game {
         Player t = Bukkit.getPlayer(target);
         Inventory inv = InventoryUtil.createInventory(header + "§0카드 도박", 54);
         Inventory invClone = InventoryUtil.createInventory(header + "§0카드 도박", 54);
-        ItemStack edge = InventoryUtil.createItemStack(Material.IRON_FENCE, " ");
-        ItemStack sign = InventoryUtil.createItemStack(Material.SIGN, header + "§b배팅액", " ", " §8-  §f현재 베팅액은 §c" + MAX_BET + "§f원 입니다.", " ");
+        ItemStack edge = InventoryUtil.createItemStack(Material.IRON_BARS, " ");
+        ItemStack sign = InventoryUtil.createItemStack(Material.OAK_SIGN, header + "§b배팅액", " ", " §8-  §f현재 베팅액은 §c" + MAX_BET + "§f원 입니다.", " ");
         ItemStack note = InventoryUtil.createItemStack(Material.NOTE_BLOCK, header + "§b소리내기", " ", " §8-  §f소리로 주의를 끌어봅시다.", " §8-  §c과도한 어그로는 손절을 유발합니다.", " ");
         for (int i = 0; i < 9; i++) {
             inv.setItem(i, edge);

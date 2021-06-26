@@ -85,11 +85,11 @@ public class Poker implements Game {
         Player t = Bukkit.getPlayer(target);
         Inventory inv = InventoryUtil.createInventory(header + "§0포커", 36);
         Inventory invClone = InventoryUtil.createInventory(header + "§0포커", 36);
-        ItemStack edge = InventoryUtil.createItemStack(Material.IRON_FENCE, " ");
+        ItemStack edge = InventoryUtil.createItemStack(Material.IRON_BARS, " ");
         ItemStack playerHead = InventoryUtil.createSkullStack(header + "§b" + p.getName(), p, " ");
         ItemStack targetHead = InventoryUtil.createSkullStack(header + "§c" + t.getName(), t, " ");
-        ItemStack offLamp = InventoryUtil.createItemStack(Material.REDSTONE_LAMP_OFF, header + "§b베팅 상태", " ", " §8-  §f아직 베팅을 완료하지 않았습니다.", " ");
-        ItemStack help = InventoryUtil.createItemStack(Material.SIGN, header + "§f포커", " ", " §8-  §f인첸트된 책은 1회 변경이 가능한 패 입니다.", " §8-  §f밑의 발광석을 클릭하여 베팅을 종료 할 수 있습니다.", " §8-  §f현재 베팅액 §7: §6" + MAX_BET * 2 + "§원", " ");
+        ItemStack offLamp = InventoryUtil.createItemStack(Material.REDSTONE_LAMP, header + "§b베팅 상태", " ", " §8-  §f아직 베팅을 완료하지 않았습니다.", " ");
+        ItemStack help = InventoryUtil.createItemStack(Material.OAK_SIGN, header + "§f포커", " ", " §8-  §f인첸트된 책은 1회 변경이 가능한 패 입니다.", " §8-  §f밑의 발광석을 클릭하여 베팅을 종료 할 수 있습니다.", " §8-  §f현재 베팅액 §7: §6" + MAX_BET * 2 + "§원", " ");
         for (int i = 0; i < 2; i++) {
             inv.setItem(i + 9, edge);
             invClone.setItem(i + 9, edge);
@@ -230,7 +230,7 @@ public class Poker implements Game {
         if (checkTurn(val)) {
             Player p = Bukkit.getPlayer(player);
             Player t = Bukkit.getPlayer(target);
-            ItemStack edge = InventoryUtil.createItemStack(Material.IRON_FENCE, " ");
+            ItemStack edge = InventoryUtil.createItemStack(Material.IRON_BARS, " ");
             ItemStack on = InventoryUtil.createItemStack(Material.REDSTONE_BLOCK, header + "§b베팅 상태", " ", " §8-  §f베팅을 완료 하셨습니다.", " ");
             if (turn) {
                 p.getOpenInventory().setItem(1, on);
