@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class InventoryClickListener implements Listener {
 
@@ -87,7 +88,8 @@ public class InventoryClickListener implements Listener {
                             Material type = event.getCurrentItem().getType();
                             if (type == Material.STONE_BUTTON) {
                                 //insurance
-                                if (target.getOpenInventory().getItem(40).getType() == Material.REDSTONE_TORCH)
+                                ItemStack stack = event.getView().getTopInventory().getItem(40);
+                                if (stack != null && stack.getType() == Material.REDSTONE_TORCH)
                                     target.sendMessage(header + ChatColor.RED + "Insurance(보험) 여부를 선택해주세요. (종이 클릭시 거부)");
                                 else {
                                     //일반처리
@@ -99,7 +101,8 @@ public class InventoryClickListener implements Listener {
                             }
                             else if (type == Material.OAK_BUTTON) {
                                 //insurance
-                                if (target.getOpenInventory().getItem(40).getType() == Material.REDSTONE_TORCH)
+                                ItemStack stack = event.getView().getTopInventory().getItem(40);
+                                if (stack != null && stack.getType() == Material.REDSTONE_TORCH)
                                     target.sendMessage(header + ChatColor.RED + "Insurance(보험) 여부를 선택해주세요. (종이 클릭시 거부)");
                                 else
                                     //일반처리
@@ -107,11 +110,12 @@ public class InventoryClickListener implements Listener {
                             }
                             else if (type == Material.REDSTONE_TORCH) {
                                 //insurance
-                                event.getInventory().setItem(40, blackjack.insurance());
+                                event.getView().getTopInventory().setItem(40, blackjack.insurance());
                             }
                             else if (type == Material.PAPER) {
                                 //insurance 거부시
-                                if (target.getOpenInventory().getItem(40).getType() == Material.REDSTONE_TORCH)
+                                ItemStack stack = event.getView().getTopInventory().getItem(40);
+                                if (stack != null && stack.getType() == Material.REDSTONE_TORCH)
                                     blackjack.insuranceDeny();
                             }
                         }
